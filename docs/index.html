@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Junk Cleaner for Mac</title>
+<meta name="description" content="A small, native macOS app that safely removes caches, logs and leftovers — only after you confirm.">
+<link rel="icon" href="assets/icon.png">
+<style>
+:root{
+  --bg:#fbfbfd; --fg:#1d1d1f; --muted:#6e6e73; --card:#ffffff; --line:#e5e5ea;
+  --accent:#0071e3; --accent-fg:#fff; --row:#f5f5f7; --shadow:0 20px 60px rgba(0,0,0,.12);
+}
+@media (prefers-color-scheme:dark){ :root{
+  --bg:#000; --fg:#f5f5f7; --muted:#a1a1a6; --card:#1c1c1e; --line:#2c2c2e;
+  --accent:#2997ff; --row:#2c2c2e; --shadow:0 20px 60px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box;margin:0}
+body{font:17px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-size:14px}
+nav b{display:flex;align-items:center;gap:8px;font-weight:600}
+nav img{width:24px;height:24px}
+nav a{margin-left:20px;color:var(--fg);opacity:.8}
+.hero{text-align:center;padding:64px 0 40px}
+.hero img.icon{width:148px;height:148px;filter:drop-shadow(0 18px 30px rgba(40,90,255,.35))}
+h1{font:700 clamp(40px,7vw,72px)/1.05 -apple-system,"SF Pro Display",sans-serif;letter-spacing:-.02em;margin:24px 0 12px}
+.lead{font-size:clamp(19px,2.4vw,24px);color:var(--muted);max-width:640px;margin:0 auto}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:32px 0 10px}
+.btn{display:inline-block;padding:13px 26px;border-radius:980px;font-weight:500}
+.btn.primary{background:var(--accent);color:var(--accent-fg)}
+.btn.ghost{border:1px solid var(--accent)}
+.small{font-size:13px;color:var(--muted)}
+/* app window mock */
+.window{max-width:620px;margin:48px auto 0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;text-align:left}
+.bar{height:34px;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line)}
+.bar i{width:12px;height:12px;border-radius:50%;display:block}
+.head{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.head img{width:52px;height:52px}
+.head b{font-size:20px;display:block}
+.rows{padding:14px;display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:12px;background:var(--row);border-radius:11px;padding:10px 14px;font-size:15px}
+.tile{width:30px;height:30px;border-radius:8px;flex:none}
+.row .name{flex:1;min-width:0}
+.row .name small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.size{color:var(--muted);font-variant-numeric:tabular-nums}
+.sw{width:34px;height:20px;border-radius:10px;background:#34c759;position:relative;flex:none}
+.sw:after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.sw.off{background:#8e8e93;opacity:.5}.sw.off:after{right:auto;left:2px}
+.rv{font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 8px;background:var(--card)}
+.lock{color:#ff9f0a}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.foot span.b{background:var(--accent);color:#fff;padding:7px 18px;border-radius:7px;font-size:14px}
+section{padding:88px 0 0}
+h2{font:700 clamp(30px,4.5vw,44px)/1.1 -apple-system,"SF Pro Display",sans-serif;letter-spacing:-.015em;text-align:center;margin-bottom:12px}
+.sub{text-align:center;color:var(--muted);max-width:620px;margin:0 auto 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
+.card .e{font-size:28px}
+.card h3{font-size:19px;margin:10px 0 6px}
+.card p{color:var(--muted);font-size:15px}
+.stat{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#33d9f2,#2e73ff 55%,#7340f2);color:#fff;border-radius:24px}
+.stat b{font:700 clamp(56px,10vw,104px)/1 -apple-system,"SF Pro Display",sans-serif;display:block;letter-spacing:-.03em}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:500}
+.tag{font-size:12px;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.del{background:rgba(255,59,48,.12);color:#ff453a}.tr{background:rgba(0,113,227,.12);color:var(--accent)}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:8px 16px}
+ol.steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:14px;max-width:640px;margin:0 auto}
+ol.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 62px;position:relative}
+ol.steps li:before{content:counter(s);position:absolute;left:18px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:600}
+.window.shot img{display:block;width:100%;height:auto}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.gallery img{display:block;width:100%;height:auto}
+.gallery figcaption{padding:14px 18px;font-size:15px;color:var(--muted)}
+.gallery figcaption b{color:var(--fg)}
+footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+@media (max-width:560px){ nav a.hide{display:none} .row{font-size:14px} .row .size{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <b><img src="assets/icon.png" alt="">Junk Cleaner</b>
+    <span><a class="hide" href="#features">Features</a><a class="hide" href="#screens">Screenshots</a><a class="hide" href="#safety">Safety</a><a href="https://github.com/debandjones01012014-a11y/junk-cleaner">GitHub</a></span>
+  </nav>
+
+  <header class="hero">
+    <img class="icon" src="assets/icon.png" alt="Junk Cleaner icon">
+    <h1>Take your disk back.</h1>
+    <p class="lead">A small, native Mac app that finds the caches, logs and leftovers filling your drive — and removes only what's safe, only after you say so.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk-cleaner/releases/latest">Download for Mac</a>
+      <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk-cleaner">View on GitHub</a>
+    </div>
+    <p class="small">Free &amp; open source · macOS 14 or later · Apple Silicon &amp; Intel</p>
+
+    <div class="window shot">
+      <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+      <picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/main-dark.png"><img src="screenshots/main-light.png" alt="Junk Cleaner main window"></picture>
+    </div>
+  </header>
+
+  <section>
+    <div class="stat"><b>281 GB</b>of After Effects logs and cache found on the Mac this app was built for. None of it was needed.</div>
+  </section>
+
+  <section id="features">
+    <h2>Careful by design.</h2>
+    <p class="sub">Most cleaners ask you to trust them. Junk Cleaner shows you everything and lets you decide.</p>
+    <div class="grid">
+      <div class="card"><div class="e">✋</div><h3>Nothing without your OK</h3><p>Scanning is read-only. The confirmation tells you exactly what is deleted and what goes to the Trash.</p></div>
+      <div class="card"><div class="e">🔒</div><h3>Open apps are protected</h3><p>Caches of running apps are skipped automatically, and checked again right before cleaning.</p></div>
+      <div class="card"><div class="e">🗑️</div><h3>Real files go to the Trash</h3><p>Installers, old versions and Premiere files are picked one by one in a review window — and stay recoverable.</p></div>
+      <div class="card"><div class="e">📁</div><h3>Exclude any folder</h3><p>Working on three projects? Add them to the excluded list and the app will never look inside.</p></div>
+      <div class="card"><div class="e">🎬</div><h3>Built for creatives</h3><p>Finds After Effects caches, Media Cache, and Premiere previews &amp; autosaves older than the age you choose.</p></div>
+      <div class="card"><div class="e">🛡️</div><h3>Private and local</h3><p>Native SwiftUI. No network, no analytics, no admin password. Nothing leaves your Mac.</p></div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <h2>See everything before it goes.</h2>
+    <p class="sub">Real files get their own review window. Tick, check in Finder, decide.</p>
+    <div class="gallery">
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-installers-dark.png"><img src="screenshots/review-installers-light.png" alt="Installers review"></picture><figcaption><b>Installers.</b> Nothing pre-selected — a .dmg can hold real work.</figcaption></figure>
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-premiere-dark.png"><img src="screenshots/review-premiere-light.png" alt="Premiere previews review"></picture><figcaption><b>Premiere previews.</b> Older than your chosen age; shared cloud files flagged.</figcaption></figure>
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/settings-dark.png"><img src="screenshots/settings-light.png" alt="Settings"></picture><figcaption><b>Excluded folders.</b> Your live projects are never scanned or touched.</figcaption></figure>
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/done-dark.png"><img src="screenshots/done-light.png" alt="Result"></picture><figcaption><b>Clear results.</b> What was freed, what is in the Trash, what was skipped.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="safety">
+    <h2>Exactly what it cleans.</h2>
+    <p class="sub">Every rule is documented in the open. <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/docs/SAFETY.md">Read the full safety model →</a></p>
+    <div class="tablewrap"><table>
+      <tr><th>Group</th><th>How</th><th>Notes</th></tr>
+      <tr><td>After Effects disk cache &amp; logs</td><td><span class="tag del">Deleted</span></td><td>Locked while After Effects is open</td></tr>
+      <tr><td>Adobe Media Cache &amp; Peak files</td><td><span class="tag del">Deleted</span></td><td>Locked while Adobe video apps are open</td></tr>
+      <tr><td>App caches</td><td><span class="tag del">Deleted</span></td><td>Skips Apple system caches and open apps</td></tr>
+      <tr><td>Browser &amp; Teams caches</td><td><span class="tag del">Deleted</span></td><td>Logins, bookmarks and history are kept</td></tr>
+      <tr><td>Logs &amp; developer caches</td><td><span class="tag del">Deleted</span></td><td>Regenerated or re-downloaded when needed</td></tr>
+      <tr><td>Installers in Downloads</td><td><span class="tag tr">Trash</span></td><td>You pick each file; none pre-selected</td></tr>
+      <tr><td>Older Adobe version leftovers</td><td><span class="tag tr">Trash</span></td><td>Newest version always kept</td></tr>
+      <tr><td>Old Premiere previews &amp; autosaves</td><td><span class="tag tr">Trash</span></td><td>Older than 14–90 days, your choice</td></tr>
+      <tr><td>Unusual file names</td><td><span class="tag tr">Trash</span></td><td>Listed separately, never pre-selected</td></tr>
+    </table></div>
+  </section>
+
+  <section id="install">
+    <h2>Install in a minute.</h2>
+    <p class="sub">The app isn't notarized by Apple yet, so macOS asks you to approve it once.</p>
+    <ol class="steps">
+      <li>Download the latest <b>JunkCleaner.zip</b> from <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/releases/latest">Releases</a> and unzip it.</li>
+      <li>Move <b>Junk Cleaner.app</b> into your Applications folder and open it.</li>
+      <li>If macOS blocks it, open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. Only needed once.</li>
+    </ol>
+  </section>
+
+  <footer>
+    Junk Cleaner is open source under the MIT License. Use at your own risk and keep backups.<br>
+    <a href="https://github.com/debandjones01012014-a11y/junk-cleaner">Source on GitHub</a> · <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/docs/USER_GUIDE.md">User Guide</a> · <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/CHANGELOG.md">Changelog</a>
+  </footer>
+</div>
+</body>
+</html>
