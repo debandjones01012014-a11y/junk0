@@ -1,0 +1,15 @@
+name: 💡 Idea or update request
+description: Suggest an app to support, a safety feature, or anything that would make Junk0 better.
+labels: ["idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      placeholder: "e.g. Please support Blender render caches / add a 'report only' export for IT"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it would help

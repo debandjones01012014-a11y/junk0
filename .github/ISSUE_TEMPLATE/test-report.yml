@@ -1,0 +1,62 @@
+name: 🧪 Test report
+description: Tried Junk0? Tell me how it went — good or bad. This is the most helpful thing you can do.
+title: "Test report: "
+labels: ["test report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing! Junk0 is a personal side project, so every report helps make it safer for everyone.
+        Please don't paste anything private (client names, file paths with personal info).
+  - type: dropdown
+    id: result
+    attributes:
+      label: How did it go?
+      options:
+        - "✅ Worked fine"
+        - "⚠️ Something looked wrong in the scan"
+        - "❌ Something went wrong when cleaning"
+        - "🤔 Not sure / question"
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: Your Mac and macOS version
+      placeholder: "e.g. MacBook Pro M2, macOS 15.3"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Junk0 version
+      placeholder: "e.g. 2.3"
+  - type: checkboxes
+    id: apps
+    attributes:
+      label: Which creative apps do you use?
+      options:
+        - label: After Effects / Premiere Pro / Media Encoder
+        - label: Photoshop / Illustrator
+        - label: DaVinci Resolve
+        - label: Final Cut Pro / Motion / Compressor / Logic
+        - label: CapCut
+        - label: Affinity / Pixelmator
+        - label: Other (please mention below)
+  - type: input
+    id: space
+    attributes:
+      label: Roughly how much space did it find / free?
+      placeholder: "e.g. found 85 GB, freed 60 GB"
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Anything that looked wrong — an item that shouldn't be listed, junk it missed, an error, a confusing screen.
+      placeholder: "Describe what you saw. Screenshots are very welcome."
+  - type: checkboxes
+    id: backup
+    attributes:
+      label: Before testing
+      options:
+        - label: I kept a backup of my important projects.

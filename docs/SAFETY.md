@@ -1,5 +1,10 @@
 # Safety model
 
+> [!IMPORTANT]
+> **Personal side project — early release.** Junk0 was built for, and tested properly on, the author’s own Mac. It has not been
+> tested across many Macs or setups yet and is **not recommended for business or work-critical machines**. Back up first, start
+> with the read-only scan, and please [share what you find](https://github.com/debandjones01012014-a11y/junk0/issues/new/choose).
+
 Junk0 is built around one rule: **only remove things that are either rebuilt automatically, or that you picked yourself — and never anything else.**
 
 ## Hard guarantees (enforced in `Sources/Engine.swift`)

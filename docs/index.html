@@ -77,6 +77,13 @@ ol.steps li:before{content:counter(s);position:absolute;left:18px;top:14px;width
 .gallery img{display:block;width:100%;height:auto}
 .gallery figcaption{padding:14px 18px;font-size:15px;color:var(--muted)}
 .gallery figcaption b{color:var(--fg)}
+.notice{display:flex;gap:14px;align-items:flex-start;max-width:720px;margin:28px auto 0;text-align:left;background:rgba(255,159,10,.10);border:1px solid rgba(255,159,10,.45);border-radius:16px;padding:16px 20px;font-size:15px;line-height:1.5}
+.notice b{color:var(--fg)}
+.notice .ico{font-size:22px;line-height:1.2}
+.notice a{font-weight:600}
+.testcard{max-width:720px;margin:28px auto 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.testcard h3{font-size:19px;margin-bottom:8px}
+.testcard ul{margin:8px 0 14px 20px;color:var(--muted);font-size:15px}
 footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 @media (max-width:560px){ nav a.hide{display:none} .row{font-size:14px} .row .size{display:none} }
 </style>
@@ -97,6 +104,7 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
       <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk0">View on GitHub</a>
     </div>
     <p class="small">Free &amp; open source · macOS 14 or later · Apple Silicon &amp; Intel</p>
+    <div class="notice"><span class="ico">🧪</span><div><b>Personal side project — early release.</b> I built Junk0 for my own Mac and made it public because it worked for me. It hasn’t been tested across many Macs yet, so it’s <b>not recommended for business or work-critical machines</b>. Back up first, try the read-only scan, and <a href="/issues/new/choose">tell me what you find</a>.</div></div>
 
     <div class="window shot">
       <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
@@ -163,10 +171,11 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
       <li>Move <b>Junk0.app</b> into your Applications folder and open it.</li>
       <li>If macOS blocks it, open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. Only needed once.</li>
     </ol>
+    <div class="testcard"><h3>🙏 Help test Junk0</h3><p class="small" style="font-size:15px">So far it’s been tested properly on one Mac — mine. If you try it, a short report helps a lot:</p><ul><li>✅ It worked — your Mac, macOS version, apps, and space freed</li><li>⚠️ Something looked wrong — an item that shouldn’t be listed, or junk it missed</li><li>💡 An idea — another app to support, a safety feature</li></ul><a class="btn primary" href="/issues/new/choose">Send a test report</a></div>
   </section>
 
   <footer>
-    Junk0 is open source under the MIT License. Use at your own risk and keep backups.<br>
+    Junk0 is a personal side project, open source under the MIT License. Tested on the author’s Mac only — use at your own risk and keep backups.<br>
     <a href="https://github.com/debandjones01012014-a11y/junk0">Source on GitHub</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/USER_GUIDE.md">User Guide</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/CHANGELOG.md">Changelog</a>
   </footer>
 </div>

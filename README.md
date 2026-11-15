@@ -24,7 +24,21 @@
   <img alt="SwiftUI" src="https://img.shields.io/badge/SwiftUI-native-orange?logo=swift">
   <img alt="No network" src="https://img.shields.io/badge/network-none-34c759">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-lightgrey">
+  <img alt="Personal project — early release" src="https://img.shields.io/badge/status-personal%20project%20·%20early%20release-ff9f0a">
 </p>
+
+> [!IMPORTANT]
+> **This is a personal side project — please help me test it.**
+>
+> I built Junk0 to fix the storage mess on my own Mac, because I couldn't find a free tool that did the job.
+> It worked well on **my** system, so I made it public for anyone facing the same hassle.
+>
+> It has **not** been used by many people or tested across many Macs and setups yet, so it is
+> **not recommended for business or work-critical machines**.
+>
+> **Trying it?** Start with the read-only scan, keep a backup of your important projects,
+> and then **[tell me what you found](../../issues/new/choose)** — what worked, what looked wrong, and what you'd like added.
+> Every report helps make it safer. 🙏
 
 <p align="center">
   <picture>
@@ -37,6 +51,7 @@
 
 ## Table of contents
 
+- [Help test Junk0](#help-test-junk0)
 - [Why this exists](#why-this-exists)
 - [Highlights](#highlights)
 - [Screenshots](#screenshots)
@@ -52,6 +67,30 @@
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License & disclaimer](#license--disclaimer)
+
+---
+
+## Help test Junk0
+
+Junk0 started as a fix for my own Mac. So far it has only been tested properly on **one machine — mine** — with After Effects,
+Premiere and DaVinci Resolve. Final Cut Pro, CapCut and the App Store app rules were tested with sample files, not real installs.
+That's why I'm asking for help.
+
+**How to test safely**
+
+1. **Back up** your important projects (Time Machine or a copy on another drive).
+2. Add any **live project folders** to *Settings → Excluded folders*.
+3. Open Junk0 and just **look at the scan** — nothing is removed until you click *Clean* and confirm.
+4. Open each **Review…** window and check that every listed item really is junk.
+5. If you clean, start with the **obvious caches**. Reviewed files go to the **Trash**, so you can *Put Back*.
+
+**What to report** — use the [test report form](../../issues/new/choose):
+
+- ✅ It worked — your Mac (model, macOS version), which apps you use, roughly how much space it found and freed.
+- ⚠️ Something looked wrong — an item you think should **not** have been listed, or junk it **missed**.
+- 💡 An idea — another app to support, a safety feature, anything that would make it more useful.
+
+Even a one-line "worked fine on my M2 with Resolve" helps. Thank you!
 
 ---
 
@@ -226,6 +265,11 @@ Its app is open. Quit the app and press ↻ to rescan.
 Files moved to the Trash still take space until you empty it.
 </details>
 
+<details><summary><b>Has it been widely tested? Can I use it at work?</b></summary>
+Not yet. It's a personal side project that has been tested properly on one Mac (mine). It is not recommended for business or
+work-critical machines. If you try it, back up first and please <a href="../../issues/new/choose">share what you found</a>.
+</details>
+
 <details><summary><b>Does it run in the background or phone home?</b></summary>
 No and no. It only acts when you click Clean, and has no network code.
 </details>
@@ -299,5 +343,6 @@ before adding a cleaning rule.
 
 Released under the [MIT License](LICENSE).
 
-Junk0 removes files. It is designed to touch only caches, logs and leftovers, and every rule is documented
-in the open, but you use it at your own risk. Keep a backup (Time Machine) of anything you care about.
+Junk0 is a **personal side project and an early release**, tested on the author's own Mac only. It removes files.
+It is designed to touch only caches, logs and leftovers, and every rule is documented in the open, but you use it at your
+own risk and it is not recommended for business or work-critical machines. Keep a backup (Time Machine) of anything you care about.

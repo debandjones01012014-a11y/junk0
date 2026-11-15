@@ -1,6 +1,8 @@
 # Contributing
 
-Thanks for helping! A few rules keep Junk0 trustworthy:
+Thanks for helping! Junk0 is a personal side project that has only been tested properly on one Mac, so **test reports are the most valuable contribution** — use the [Test report form](../../issues/new/choose), even for "it worked fine".
+
+If you change code, a few rules keep Junk0 trustworthy:
 
 1. **Safety first.** A new cleaning rule must target files that are either regenerated automatically
    (then it may be deleted) or that the user reviews one by one (then it must go to the Trash).

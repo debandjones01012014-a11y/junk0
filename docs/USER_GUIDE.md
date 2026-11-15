@@ -1,5 +1,10 @@
 # Junk0 — User Guide
 
+> [!IMPORTANT]
+> **Personal side project — early release.** Junk0 was built for, and tested properly on, the author’s own Mac. It has not been
+> tested across many Macs or setups yet and is **not recommended for business or work-critical machines**. Back up first, start
+> with the read-only scan, and please [share what you find](https://github.com/debandjones01012014-a11y/junk0/issues/new/choose).
+
 This guide walks through every screen, every setting and every cleaning group, with real screenshots
 and step-by-step use cases. If you only want the safety rules, see [SAFETY.md](SAFETY.md).
 

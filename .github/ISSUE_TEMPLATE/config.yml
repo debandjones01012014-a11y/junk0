@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 User Guide
+    url: https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/USER_GUIDE.md
+    about: How every screen and setting works.
+  - name: 🛡️ Safety model
+    url: https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/SAFETY.md
+    about: Exactly what Junk0 touches — and what it never touches.
