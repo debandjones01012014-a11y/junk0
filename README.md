@@ -14,6 +14,7 @@
   <a href="docs/USER_GUIDE.md">User Guide</a> ·
   <a href="docs/SAFETY.md">Safety model</a> ·
   <a href="docs/BUILDING.md">Build from source</a> ·
+  <a href="design/README.md">Design evolution</a> ·
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
@@ -253,6 +254,7 @@ Junk0/
 │   ├── screenshots/        light & dark screenshots
 │   ├── assets/icon.png
 │   └── index.html          GitHub Pages landing page
+├── design/                 icon & name design evolution (see design/README.md)
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 └── LICENSE
