@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4 — 2026-11-15
+- The gear icon is now a labelled **Scan Options** button (sliders icon), so it is clear where to choose scan locations, exclude folders and set what counts as old.
+- The options sheet is titled **Scan Options** to match.
+
 ## 2.3 — 2026-11-15
 - **DaVinci Resolve:** render cache listed per project (by project name), plus Resolve logs. Fairlight profiles are never touched.
 - **Final Cut Pro:** render, analysis and transcoded files inside libraries (optimized/proxy media off by default).

@@ -204,7 +204,7 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 1. **Quit** heavy apps (After Effects, Premiere, browsers, Teams) to include their caches — optional but recommended.
 2. **Open Junk0**; it scans automatically (20–60 s).
 3. **Switch** cache groups on/off, and click **Review…** on file groups to pick individual files.
-4. Use **⚙ Settings** to add excluded folders, choose project folders and the age for old project files.
+4. Use **Scan Options** (top right) to add excluded folders, choose project folders and the age for old project files.
 5. Click **Clean**, read the confirmation, confirm.
 6. **Empty the Trash** to reclaim space from reviewed files.
 
@@ -331,6 +331,7 @@ Junk0/
 - [ ] Scheduled scans with a notification when junk passes a threshold
 - [ ] Set After Effects' maximum disk cache size from inside the app
 - [x] DaVinci Resolve, Final Cut Pro, Motion, Compressor, Logic, CapCut and App Store app caches (v2.3)
+- [x] Labelled **Scan Options** button instead of a gear icon (v2.4)
 - [ ] More cleaners: Xcode DerivedData, Docker, Blender & Cinema 4D project caches
 - [ ] Optional premium features (to be decided)
 

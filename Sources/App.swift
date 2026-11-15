@@ -111,8 +111,9 @@ struct ContentView: View {
         Button { Task { await m.scan() } } label: { Image(systemName: "arrow.clockwise") }
           .buttonStyle(.borderless).help("Scan again")
       }
-      Button { settings = true } label: { Image(systemName: "gearshape") }
-        .buttonStyle(.borderless).help("Excluded folders & Premiere settings")
+      Button { settings = true } label: { Label("Scan Options", systemImage: "slider.horizontal.3") }
+        .buttonStyle(.bordered).controlSize(.regular)
+        .help("Choose where Junk0 looks, exclude folders, and set what counts as old")
     }
     .font(.system(size: 15))
     .padding(20)
@@ -255,7 +256,7 @@ struct SettingsSheet: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 18) {
-      Text("Settings").font(.title2.weight(.semibold))
+      Text("Scan Options").font(.title2.weight(.semibold))
       folders("Excluded folders", "Never scanned or touched — e.g. projects you're working on now.", "folder.badge.minus", $prefs.excluded)
       folders("Project folders", "Where to look for Premiere previews & autosaves, Resolve render caches and Final Cut libraries.", "film", $prefs.roots)
       HStack {
