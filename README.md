@@ -77,10 +77,10 @@ went, let you decide, and never touch your own work.**
 - 🔍 **One scan, everything visible.** Every group shows its size, sorted largest first.
 - ✋ **Nothing happens without you.** Scanning is read-only; the confirmation says exactly what's deleted and what goes to the Trash.
 - 🔒 **Open apps are protected.** Caches of running apps are skipped — and re-checked right before cleaning.
-- 🗂️ **Review windows** for real files: installers, old Adobe versions, Premiere previews & autosaves, unusual file names.
+- 🗂️ **Review windows** for real files: installers, old Adobe versions, Premiere previews & autosaves, Resolve render caches (by project), Final Cut generated files (by library), App Store app caches, unusual file names.
 - 🗑️ **Real files go to the Trash**, recoverable with *Put Back*. Only regenerable caches and logs are deleted outright.
 - 📁 **Excluded folders.** Working on three projects? Exclude them and the app never looks inside.
-- 🎬 **Made for video people.** After Effects disk cache & logs, Media Cache, Premiere previews and autosaves older than *N* days.
+- 🎬 **Made for every creative Mac.** Adobe (After Effects, Premiere, Media Encoder, Photoshop, Illustrator), **DaVinci Resolve**, **Final Cut Pro, Motion, Compressor & Logic**, **CapCut**, and App Store apps like **Affinity** and **Pixelmator** — see [supported apps](#supported-apps).
 - ☁️ **Cloud-aware.** Files in OneDrive / iCloud are flagged and never pre-selected — removal would sync to your whole team.
 - 🛡️ **Private by construction.** No network code, no analytics, no admin password, no background process.
 - 🌗 **Feels like macOS.** Native SwiftUI, light & dark mode, universal (Apple Silicon + Intel).
@@ -91,7 +91,8 @@ went, let you decide, and never touch your own work.**
 |---|---|
 | <img src="docs/screenshots/main-light.png" alt="Main window"> **Main window** — groups sorted by size; a locked group (After Effects is open); switches for caches, *Review…* for files. | <img src="docs/screenshots/main-dark.png" alt="Main window dark"> **Dark mode** — follows your system appearance automatically. |
 | <img src="docs/screenshots/review-installers-light.png" alt="Installers review"> **Installers review** — tick individual `.dmg`/`.pkg` files; 🔍 shows each one in Finder. | <img src="docs/screenshots/review-premiere-light.png" alt="Premiere review"> **Premiere previews** — renders older than 21 days; the shared OneDrive file is flagged and unticked. |
-| <img src="docs/screenshots/review-old-adobe-light.png" alt="Old Adobe review"> **Old Adobe versions** — settings and plugin data of versions you've upgraded from; newest is always kept. | <img src="docs/screenshots/settings-light.png" alt="Settings"> **Settings** — excluded folders, Premiere project folders, age for old files. |
+| <img src="docs/screenshots/review-resolve-light.png" alt="Resolve review"> **DaVinci Resolve** — render cache listed by **project name**; projects used recently stay unticked. | <img src="docs/screenshots/review-fcp-light.png" alt="Final Cut review"> **Final Cut Pro** — render, analysis and transcoded files per library and event; optimized/proxy media unticked by default. |
+| <img src="docs/screenshots/review-old-adobe-light.png" alt="Old Adobe review"> **Old Adobe versions** — settings and plugin data of versions you've upgraded from; newest is always kept. | <img src="docs/screenshots/settings-light.png" alt="Settings"> **Settings** — excluded folders, project folders (Premiere, Resolve, Final Cut), age for old files. |
 | <img src="docs/screenshots/review-unusual-light.png" alt="Unusual names"> **Unusual file names** — hidden line breaks are shown as ⏎ and never pre-selected. | <img src="docs/screenshots/done-light.png" alt="Done"> **Result** — space freed, space in the Trash, and anything skipped. |
 
 *Screenshots use sample data.*
@@ -112,7 +113,24 @@ went, let you decide, and never touch your own work.**
 | Old Adobe version leftovers | **Trash**, after review | On | Highest version always kept |
 | Old Premiere preview renders | **Trash**, after review | On | Older than 14–90 days; cloud files off |
 | Old Premiere autosaves | **Trash**, after review | **Off** | Older than 14–90 days |
+| DaVinci Resolve render cache | **Trash**, after review | On (off if used in the last *N* days) | Listed by project name; Fairlight profiles never touched; locked while Resolve is open |
+| DaVinci Resolve logs | Deleted | On | Locked while Resolve is open |
+| Final Cut Pro generated files | **Trash**, after review | Render & analysis on, optimized/proxy **off** | Same files as *File › Delete Generated Library Files*; locked while Final Cut is open |
+| Final Cut, Motion, Compressor & Logic caches | Deleted | On | The only Apple caches Junk0 touches; locked while the app is open |
+| CapCut cache | Deleted | On | Only the `Cache` folder — never your projects or drafts |
+| App Store app caches (Affinity, Pixelmator, …) | **Trash**, after review | On | Password managers, cloud drives and device-management apps are never listed |
 | Unusual file names | **Trash**, after review | **Off** | Hidden characters in the name |
+
+### Supported apps
+
+| App family | What Junk0 finds |
+|---|---|
+| **Adobe** — After Effects, Premiere Pro, Media Encoder, Photoshop, Illustrator | Disk cache, logs, Media Cache & Peak files, old previews & autosaves, old-version leftovers |
+| **DaVinci Resolve** | Render cache per project, logs |
+| **Apple pro apps** — Final Cut Pro, Motion, Compressor, Logic Pro | Final Cut generated library files; app caches |
+| **CapCut** | Effects & smart-crop cache |
+| **App Store / sandboxed apps** — Affinity, Pixelmator Pro and others | Their cache folders |
+| **Everything else** — Figma, Blender, Cinema 4D, Spotify, Slack, Zoom, Firefox, Edge, VS Code… | Standard app caches (`~/Library/Caches`), logs, developer caches, installers |
 
 Exact paths and everything that is never touched: **[docs/SAFETY.md](docs/SAFETY.md)**.
 Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.md#3-cleaning-groups-one-by-one)**.
@@ -128,6 +146,8 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 | 🔁 **A Creative Cloud user after the yearly upgrade** | Removes settings & plugin data of the versions you left behind | [Use case E](docs/USER_GUIDE.md#e-i-upgraded-adobe-creative-cloud-apps) |
 | 💻 **A developer** | Clears pip/uv/npm caches and downloaded AI models | [Use case F](docs/USER_GUIDE.md#f-developer-machine-python-node-ai-tools) |
 | 🧹 **Anyone wanting monthly maintenance** | Conservative defaults: one click, nothing risky selected | [Use case G](docs/USER_GUIDE.md#g-monthly-maintenance) |
+| 🎞️ **A DaVinci Resolve or Final Cut editor** | Finds render caches by project and generated files by library — often tens of GB | [Use case I](docs/USER_GUIDE.md#i-i-edit-in-davinci-resolve-or-final-cut-pro) |
+| 🎨 **An Affinity, Pixelmator or CapCut user** | Clears their caches, never your projects | [Use case J](docs/USER_GUIDE.md#j-i-use-affinity-pixelmator-or-capcut) |
 | 👥 **A team sharing OneDrive / iCloud folders** | Cloud files are flagged and never pre-selected | [Use case H](docs/USER_GUIDE.md#h-i-share-a-onedrive--icloud-project-folder-with-a-team) |
 
 ## Install
@@ -145,7 +165,7 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 1. **Quit** heavy apps (After Effects, Premiere, browsers, Teams) to include their caches — optional but recommended.
 2. **Open Junk0**; it scans automatically (20–60 s).
 3. **Switch** cache groups on/off, and click **Review…** on file groups to pick individual files.
-4. Use **⚙ Settings** to add excluded folders, choose Premiere project folders and the age for old Premiere files.
+4. Use **⚙ Settings** to add excluded folders, choose project folders and the age for old project files.
 5. Click **Clean**, read the confirmation, confirm.
 6. **Empty the Trash** to reclaim space from reviewed files.
 
@@ -266,7 +286,8 @@ Junk0/
 - [ ] Mac App Store edition (sandboxed, folder-access based)
 - [ ] Scheduled scans with a notification when junk passes a threshold
 - [ ] Set After Effects' maximum disk cache size from inside the app
-- [ ] More cleaners: Final Cut Pro, DaVinci Resolve, Xcode DerivedData, Docker
+- [x] DaVinci Resolve, Final Cut Pro, Motion, Compressor, Logic, CapCut and App Store app caches (v2.3)
+- [ ] More cleaners: Xcode DerivedData, Docker, Blender & Cinema 4D project caches
 - [ ] Optional premium features (to be decided)
 
 ## Contributing

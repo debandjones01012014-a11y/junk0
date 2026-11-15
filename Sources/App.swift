@@ -217,7 +217,7 @@ struct ReviewSheet: View {
           HStack(alignment: .top, spacing: 10) {
             Toggle("", isOn: $e.on).toggleStyle(.checkbox).labelsHidden()
             VStack(alignment: .leading, spacing: 2) {
-              Text(visibleName(e.url.lastPathComponent)).lineLimit(1).truncationMode(.middle)
+              Text(e.title ?? visibleName(e.url.lastPathComponent)).lineLimit(1).truncationMode(.middle)
               Text(tilde(e.url.deletingLastPathComponent().path)).font(.caption).foregroundStyle(.secondary)
                 .lineLimit(1).truncationMode(.middle)
               if !e.note.isEmpty {
@@ -257,9 +257,9 @@ struct SettingsSheet: View {
     VStack(alignment: .leading, spacing: 18) {
       Text("Settings").font(.title2.weight(.semibold))
       folders("Excluded folders", "Never scanned or touched — e.g. projects you're working on now.", "folder.badge.minus", $prefs.excluded)
-      folders("Premiere project folders", "Where to look for old preview renders and autosaves.", "film", $prefs.roots)
+      folders("Project folders", "Where to look for Premiere previews & autosaves, Resolve render caches and Final Cut libraries.", "film", $prefs.roots)
       HStack {
-        Text("Premiere previews & autosaves older than")
+        Text("Old project files: older than")
         Picker("", selection: $prefs.days) {
           ForEach([14, 21, 30, 60, 90], id: \.self) { Text("\($0) days").tag($0) }
         }.labelsHidden().frame(width: 110)
@@ -326,6 +326,7 @@ struct Junk0App: App {
       let p = Prefs()
       for g in scanAll(ex: p.excluded, roots: p.roots, days: p.days, run: RunningApps.now()) {
         print("\(g.id)\t\(fmt(g.bytes))\t\(g.kind == .review ? "\(g.entries.count) files" : "auto")\t\(g.blocker)")
+        for e in g.entries { print("    \(e.on ? "[x]" : "[ ]") \(e.title ?? e.url.lastPathComponent)  \(fmt(e.bytes))  \(e.note)") }
       }
       exit(0)
     }

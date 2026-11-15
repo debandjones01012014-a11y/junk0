@@ -45,7 +45,7 @@ That's it. The rest of this guide explains each step in detail.
 |---|---|
 | **Header** | App icon, and the **total junk found** across all groups. |
 | **↻ (Scan again)** | Rescans. Use it after quitting an app so its cache becomes cleanable. |
-| **⚙ (Settings)** | Excluded folders, Premiere project folders and the age for old Premiere files. |
+| **⚙ (Settings)** | Excluded folders, project folders and the age for old project files. |
 | **Group cards** | One card per group, largest first. Coloured tile = type of junk. |
 | **Switch** (cache groups) | On = this group will be deleted when you click Clean. |
 | **Review…** (file groups) | Opens a window where you pick files one by one. The card shows *"3 of 4 selected"* and the selected size. |
@@ -53,7 +53,7 @@ That's it. The rest of this guide explains each step in detail.
 | **Clean button** | Shows exactly how much is currently selected. Disabled when nothing is selected. |
 
 While scanning you'll see a spinner. A full scan usually takes **20–60 seconds** — most of that time is
-measuring big cache folders and searching your Premiere project folders.
+measuring big cache folders and searching your project folders.
 
 <p align="center"><img src="screenshots/scanning-light.png" width="49%" alt="Scanning"></p>
 
@@ -78,6 +78,9 @@ There are two kinds of groups:
 | **Microsoft Teams cache** | Teams' web cache. | Teams starts slightly slower once. | Teams is open |
 | **User log files** | Diagnostic text logs in `~/Library/Logs`. | Nothing. | — |
 | **Developer caches** | `~/.cache` (uv, pip, Hugging Face / Whisper models, Puppeteer browsers…) and npm's download cache. | Packages and AI models download again the next time a tool needs them. | — |
+| **DaVinci Resolve logs** | Resolve's diagnostic logs and crash archives. | Nothing. | DaVinci Resolve is open |
+| **Final Cut, Motion, Compressor & Logic caches** | The app caches of Apple's pro apps — the only Apple caches Junk0 ever touches. | The app starts a little slower once. | That app is open |
+| **CapCut cache** | `~/Movies/CapCut/User Data/Cache` (effects, smart-crop). **Never** `Projects`, where your drafts live. | Effects re-download when used. | CapCut is open |
 
 ### File groups (Review…)
 
@@ -87,6 +90,9 @@ There are two kinds of groups:
 | **Old Adobe version leftovers** | Settings and plugin data from Adobe versions you've upgraded from. The newest version is always kept. | Yes |
 | **Old Premiere preview renders** | Render files in `Adobe Premiere Pro Video/Audio Previews` folders older than your chosen age. | Yes (except cloud folders) |
 | **Old Premiere autosaves** | `.prproj` copies in `Adobe Premiere Pro Auto-Save` folders older than your chosen age. | **No** |
+| **DaVinci Resolve render cache** | One entry per project in each `CacheClip` folder, named by the project. The shared `audio` folder (Fairlight profiles) is never listed. | Yes — **No** for projects used in the last *N* days |
+| **Final Cut Pro generated files** | Per library and event: `Render Files`, `Analysis Files` and `Transcoded Media` (optimized & proxy). | Render & analysis yes; **optimized/proxy no** |
+| **App Store app caches** | The cache folder of sandboxed apps (Affinity, Pixelmator Pro, …) when larger than 20 MB. Password managers, cloud-drive and device-management apps are never listed. | Yes |
 | **Unusual file names** | Any of the above whose name contains hidden characters (line breaks, tabs, leading spaces). | **No** |
 
 Cache groups smaller than 1 MB, and file groups with nothing found, are hidden.
@@ -119,6 +125,32 @@ The footer always shows how many files and how much space are selected.
 
 The app looks at the version-numbered folders Adobe creates (for example `After Effects/25.6`, `26.2`, `26.3`)
 and lists every one **except the highest**. If you still use an older version side by side, untick it.
+
+### DaVinci Resolve render cache
+
+<p align="center"><img src="screenshots/review-resolve-light.png" width="70%" alt="Resolve render cache review"></p>
+
+Resolve keeps a render cache per project inside a hidden-looking `CacheClip` folder (by default in
+`~/Movies/DaVinci Resolve`, or wherever *Cache Files Location* points). Junk0 reads each project's `Info.txt`, so you see
+**project names**, not codes. Projects touched in the last *N* days stay unticked. Resolve rebuilds the cache when you
+play or render again. The whole group is locked while Resolve is open. If your cache lives on another drive, add it
+under **Project folders** in Settings.
+
+### Final Cut Pro generated files
+
+<p align="center"><img src="screenshots/review-fcp-light.png" width="70%" alt="Final Cut generated files review"></p>
+
+These are the same files Final Cut removes with **File › Delete Generated Library Files**, listed per library and event
+so you can choose. **Optimized & proxy media** are unticked by default — recreating them takes time, and if original
+media is offline the proxies may be your only playable copy. Final Cut must be closed.
+
+### App Store app caches
+
+<p align="center"><img src="screenshots/review-sandboxed-light.png" width="70%" alt="App Store app caches review"></p>
+
+Apps from the Mac App Store keep their caches inside `~/Library/Containers`. Each app is listed by name. Password
+managers, cloud-drive providers and device-management tools are never shown. macOS may ask once whether Junk0 may
+access data from other apps — that's expected.
 
 ### Unusual file names
 
@@ -154,14 +186,16 @@ parent folder that contains it.
 
 Typical use: the projects you're actively editing, a client delivery folder, a folder of installers you keep on purpose.
 
-### Premiere project folders
+### Project folders
 
-Where the app looks for `Adobe Premiere Pro … Previews` and `Adobe Premiere Pro Auto-Save` folders.
+Where the app looks for Premiere `… Previews` and `Auto-Save` folders, DaVinci Resolve `CacheClip` folders and
+Final Cut Pro libraries (`.fcpbundle`).
 Defaults: **Documents, Movies, Desktop**, plus `Documents/Adobe/Premiere Pro`. Add your external or project drives here.
 
-### Age for Premiere files
+### Age for old project files
 
-Only previews and autosaves **older than** this are listed: **14, 21 (default), 30, 60 or 90 days.**
+Premiere previews and autosaves are listed only when **older than** this; Resolve projects used more recently stay
+unticked: **14, 21 (default), 30, 60 or 90 days.**
 
 Click **Done & Rescan** to apply changes.
 
@@ -216,7 +250,7 @@ The most common case: After Effects and Premiere caches have grown to tens or hu
 
 ### C. "Clean up old Premiere projects but keep current ones"
 
-1. **⚙** → **Premiere project folders** → add the drive or folder where your projects live.
+1. **⚙** → **Project folders** → add the drive or folder where your projects live.
 2. Set the age, e.g. **30 days**, so anything you touched this month is ignored.
 3. Add active projects to **Excluded folders** (see B).
 4. **Done & Rescan** → **Old Premiere preview renders → Review…**
@@ -252,8 +286,26 @@ Defaults are deliberately conservative: only caches and clearly-old leftovers ar
 
 ### H. "I share a OneDrive / iCloud project folder with a team"
 
-Leave shared folders out of **Premiere project folders**, or add them to **Excluded folders**.
+Leave shared folders out of **Project folders**, or add them to **Excluded folders**.
 If they are scanned, their files show the orange *cloud folder* warning and are never pre-selected.
+
+### I. "I edit in DaVinci Resolve or Final Cut Pro"
+
+1. Quit Resolve / Final Cut.
+2. If your Resolve cache or Final Cut libraries live on an external drive, add it under **⚙ → Project folders**.
+3. **DaVinci Resolve render cache → Review…** — finished projects are ticked, projects used in the last *N* days are not.
+4. **Final Cut Pro generated files → Review…** — render and analysis files are ticked; tick optimized/proxy media only for
+   projects whose original media is safely available.
+5. **Done → Clean**, then empty the Trash when you are happy.
+
+*Expect:* often 10–200 GB on an active editing Mac. First playback of a cleaned project re-renders.
+
+### J. "I use Affinity, Pixelmator or CapCut"
+
+1. Quit the apps you want cleaned.
+2. **App Store app caches → Review…** — each app is listed by name; untick any you want to keep warm.
+3. **CapCut cache** is a switch — only the cache folder is removed, never your drafts.
+4. **Clean.**
 
 ---
 
@@ -314,8 +366,8 @@ macOS may also take a moment to update the free-space figure.
 | *"Junk0 can't be opened because Apple cannot check it for malicious software."* | System Settings → Privacy & Security → **Open Anyway**. Only once. |
 | A group stays locked after quitting the app | Some apps keep a helper running for a few seconds. Wait, then press **↻**. |
 | *"N items couldn't be removed"* | Those files were in use. Quit the related app and clean again. |
-| Scan seems slow | Large Premiere project folders take time to search. Remove very large drives from *Premiere project folders* if you don't need them. |
-| Premiere previews not found | Add the folder that contains your projects to *Premiere project folders*. Previews live next to projects by default. |
+| Scan seems slow | Large project folders take time to search. Remove very large drives from *Project folders* if you don't need them. |
+| Premiere previews not found | Add the folder that contains your projects to *Project folders*. Previews live next to projects by default. |
 | Free space didn't increase much | Empty the Trash; check the result screen for skipped groups. |
 
 ---

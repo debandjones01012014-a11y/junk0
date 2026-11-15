@@ -6,9 +6,10 @@ import AppKit
 
 func demoGroups() -> [CleanGroup] {
   let MB: Int64 = 1_000_000, GB: Int64 = 1_000_000_000
-  func e(_ path: String, _ b: Int64, _ days: Double, _ on: Bool, _ note: String = "") -> Entry {
-    Entry(url: home / path, bytes: b, date: Date().addingTimeInterval(-days * 86_400), on: on, note: note)
+  func e(_ path: String, _ b: Int64, _ days: Double, _ on: Bool, _ note: String = "", title: String? = nil) -> Entry {
+    Entry(url: home / path, bytes: b, date: Date().addingTimeInterval(-days * 86_400), on: on, note: note, title: title)
   }
+  let rc = "Movies/DaVinci Resolve/CacheClip/", lib = "Movies/Client Promo.fcpbundle/"
   func auto(_ id: String, _ n: String, _ d: String, _ i: String, _ t: Color, _ b: Int64, _ blocker: String = "", on: Bool = true) -> CleanGroup {
     var g = CleanGroup(id: id, name: n, detail: d, icon: i, tint: t, kind: .auto); g.bytes = b; g.blocker = blocker; g.on = on; return g
   }
@@ -20,6 +21,16 @@ func demoGroups() -> [CleanGroup] {
   return [
     auto("ae_cache", "After Effects disk cache", "Rendered preview frames — rebuilt automatically", "film.stack", .purple, 48_400 * MB, "After Effects"),
     auto("media_cache", "Adobe Media Cache + Peak files", "Conformed audio & waveforms — rebuilt automatically", "waveform", .purple, 17_800 * MB),
+    review("resolve_cache", "DaVinci Resolve render cache", "Per project — Resolve re-renders it when needed", "film", .red, [
+      e(rc + "0a8920ec-7ad8-44f5-8cfc-df6e6696dc3f", 14_200 * MB, 52, true, "Render cache", title: "Project: Brand Film — Final Grade"),
+      e(rc + "231be077-47e6-43d8-84fb-94ca44a19bb1", 6_800 * MB, 88, true, "Render cache", title: "Project: Product Teaser"),
+      e(rc + "afec1307-24e0-4f04-958c-d4443c059363", 3_100 * MB, 4, false, "Render cache · used in the last 21 days", title: "Project: Podcast Ep 12"),
+      e(rc + "d1da67bc-7409-450c-bf8b-e47ce7d771d4", 410 * MB, 130, true, "Render cache", title: "Project: Untitled Project 1")]),
+    review("fcp_generated", "Final Cut Pro generated files", "Render, analysis & transcoded files inside your libraries", "scissors", .gray, [
+      e(lib + "Day 1/Render Files", 9_400 * MB, 40, true, "Render files", title: "Client Promo › Day 1"),
+      e(lib + "Day 1/Transcoded Media", 7_900 * MB, 40, false, "Optimized & proxy media — slow to recreate", title: "Client Promo › Day 1"),
+      e(lib + "Day 2/Render Files", 2_300 * MB, 38, true, "Render files", title: "Client Promo › Day 2"),
+      e(lib + "Day 2/Analysis Files", 640 * MB, 38, true, "Analysis files", title: "Client Promo › Day 2")]),
     auto("browsers", "Chrome / Brave caches", "Websites load a little slower once", "globe", .blue, 8_050 * MB),
     review("installers", "Installers in Downloads", "Disk images & packages — tick the ones to move to Trash", "shippingbox", .brown, [
       e("Downloads/Blender-4.2-macos-arm64.dmg", 380 * MB, 64, true),
@@ -41,6 +52,11 @@ func demoGroups() -> [CleanGroup] {
       e("Library/Preferences/Adobe/After Effects/26.2", 3 * MB, 90, true, "After Effects 26.2 settings"),
       e("Library/Preferences/Adobe/After Effects/25.6", 2 * MB, 300, true, "After Effects 25.6 settings"),
       e("Library/Application Support/Adobe/Adobe Photoshop 2025", 7 * MB, 380, true, "Old Photoshop support folder")]),
+    review("sandboxed", "App Store app caches", "Affinity, Pixelmator & other sandboxed apps — rebuilt automatically", "app.badge", .mint, [
+      e("Library/Containers/com.seriflabs.affinityphoto2/Data/Library/Caches", 1_900 * MB, 3, true, "com.seriflabs.affinityphoto2", title: "Affinity Photo 2"),
+      e("Library/Containers/com.pixelmatorteam.pixelmator.x/Data/Library/Caches", 720 * MB, 6, true, "com.pixelmatorteam.pixelmator.x", title: "Pixelmator Pro")]),
+    auto("capcut", "CapCut cache", "Effects & smart-crop cache — your projects are not touched", "scissors.badge.ellipsis", .cyan, 1_250 * MB),
+    auto("resolve_logs", "DaVinci Resolve logs", "Diagnostic logs and crash archives", "doc.text.magnifyingglass", .red, 312 * MB),
     auto("logs", "User log files", "Old diagnostic text files", "doc.plaintext", .gray, 221 * MB),
     review("pr_autosaves", "Old Premiere autosaves", "Older than 21 days — off by default, tick to move to Trash", "doc.badge.clock", .pink, [
       e("Documents/Projects/Spring Campaign/Adobe Premiere Pro Auto-Save/Spring Campaign--12-10-2026_14-02-11.prproj", 4 * MB, 35, false, "Autosave"),
@@ -91,6 +107,9 @@ func demoGroups() -> [CleanGroup] {
     shot("review-installers" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("installers"))) }
     shot("review-premiere" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("pr_previews"))) }
     shot("review-old-adobe" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("old_adobe"))) }
+    shot("review-resolve" + sfx, CGSize(width: 680, height: 440), dark: dark) { ReviewSheet(group: .constant(group("resolve_cache"))) }
+    shot("review-fcp" + sfx, CGSize(width: 680, height: 440), dark: dark) { ReviewSheet(group: .constant(group("fcp_generated"))) }
+    shot("review-sandboxed" + sfx, CGSize(width: 680, height: 330), dark: dark) { ReviewSheet(group: .constant(group("sandboxed"))) }
     shot("review-unusual" + sfx, CGSize(width: 680, height: 300), dark: dark) { ReviewSheet(group: .constant(group("unusual"))) }
     shot("settings" + sfx, CGSize(width: 580, height: 560), dark: dark) { SettingsSheet(prefs: prefs) {} }
     shot("scanning" + sfx, main, dark: dark) { ContentView(model: model(.scanning)) }

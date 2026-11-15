@@ -91,7 +91,7 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
   <header class="hero">
     <img class="icon" src="assets/icon.png" alt="Junk0 icon">
     <h1>Take your disk back.</h1>
-    <p class="lead">A small, native Mac app that finds the caches, logs and leftovers filling your drive — and removes only what's safe, only after you say so.</p>
+    <p class="lead">A small, native Mac app that finds the caches, renders and leftovers your creative apps leave behind — and removes only what's safe, only after you say so.</p>
     <div class="cta">
       <a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Download for Mac</a>
       <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk0">View on GitHub</a>
@@ -116,7 +116,7 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
       <div class="card"><div class="e">🔒</div><h3>Open apps are protected</h3><p>Caches of running apps are skipped automatically, and checked again right before cleaning.</p></div>
       <div class="card"><div class="e">🗑️</div><h3>Real files go to the Trash</h3><p>Installers, old versions and Premiere files are picked one by one in a review window — and stay recoverable.</p></div>
       <div class="card"><div class="e">📁</div><h3>Exclude any folder</h3><p>Working on three projects? Add them to the excluded list and the app will never look inside.</p></div>
-      <div class="card"><div class="e">🎬</div><h3>Built for creatives</h3><p>Finds After Effects caches, Media Cache, and Premiere previews &amp; autosaves older than the age you choose.</p></div>
+      <div class="card"><div class="e">🎬</div><h3>Built for every creative Mac</h3><p>Adobe, DaVinci Resolve, Final Cut Pro, Motion, Logic, CapCut, Affinity and Pixelmator — render caches, previews and generated files, by project.</p></div>
       <div class="card"><div class="e">🛡️</div><h3>Private and local</h3><p>Native SwiftUI. No network, no analytics, no admin password. Nothing leaves your Mac.</p></div>
     </div>
   </section>
@@ -125,6 +125,8 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
     <h2>See everything before it goes.</h2>
     <p class="sub">Real files get their own review window. Tick, check in Finder, decide.</p>
     <div class="gallery">
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-resolve-dark.png"><img src="screenshots/review-resolve-light.png" alt="DaVinci Resolve render cache review"></picture><figcaption><b>DaVinci Resolve.</b> Render cache by project name; recent projects stay unticked.</figcaption></figure>
+      <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-fcp-dark.png"><img src="screenshots/review-fcp-light.png" alt="Final Cut Pro generated files review"></picture><figcaption><b>Final Cut Pro.</b> Render &amp; analysis files per library; proxies stay safe.</figcaption></figure>
       <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-installers-dark.png"><img src="screenshots/review-installers-light.png" alt="Installers review"></picture><figcaption><b>Installers.</b> Nothing pre-selected — a .dmg can hold real work.</figcaption></figure>
       <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/review-premiere-dark.png"><img src="screenshots/review-premiere-light.png" alt="Premiere previews review"></picture><figcaption><b>Premiere previews.</b> Older than your chosen age; shared cloud files flagged.</figcaption></figure>
       <figure><picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/settings-dark.png"><img src="screenshots/settings-light.png" alt="Settings"></picture><figcaption><b>Excluded folders.</b> Your live projects are never scanned or touched.</figcaption></figure>
@@ -141,6 +143,10 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
       <tr><td>Adobe Media Cache &amp; Peak files</td><td><span class="tag del">Deleted</span></td><td>Locked while Adobe video apps are open</td></tr>
       <tr><td>App caches</td><td><span class="tag del">Deleted</span></td><td>Skips Apple system caches and open apps</td></tr>
       <tr><td>Browser &amp; Teams caches</td><td><span class="tag del">Deleted</span></td><td>Logins, bookmarks and history are kept</td></tr>
+      <tr><td>DaVinci Resolve render cache</td><td><span class="tag tr">Trash</span></td><td>By project; recent projects unticked; locked while Resolve is open</td></tr>
+      <tr><td>Final Cut Pro generated files</td><td><span class="tag tr">Trash</span></td><td>Render &amp; analysis files; optimized/proxy media unticked</td></tr>
+      <tr><td>Final Cut, Motion, Compressor &amp; Logic caches</td><td><span class="tag del">Deleted</span></td><td>Locked while the app is open</td></tr>
+      <tr><td>CapCut &amp; App Store app caches</td><td><span class="tag del">Deleted</span> / <span class="tag tr">Trash</span></td><td>Never projects; password managers &amp; cloud drives skipped</td></tr>
       <tr><td>Logs &amp; developer caches</td><td><span class="tag del">Deleted</span></td><td>Regenerated or re-downloaded when needed</td></tr>
       <tr><td>Installers in Downloads</td><td><span class="tag tr">Trash</span></td><td>You pick each file; none pre-selected</td></tr>
       <tr><td>Older Adobe version leftovers</td><td><span class="tag tr">Trash</span></td><td>Newest version always kept</td></tr>

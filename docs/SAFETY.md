@@ -29,6 +29,9 @@ Junk0 is built around one rule: **only remove things that are either rebuilt aut
 | Microsoft Teams cache | `~/Library/Containers/com.microsoft.teams2/Data/Library/Caches`, `~/Library/Caches/com.microsoft.teams*` |
 | User log files | `~/Library/Logs/*` |
 | Developer caches | `~/.cache/*`, `~/.npm/_cacache` |
+| DaVinci Resolve logs | `~/Library/Application Support/Blackmagic Design/DaVinci Resolve/logs/*` (locked while Resolve is open) |
+| Final Cut, Motion, Compressor & Logic caches | `~/Library/Caches/com.apple.FinalCut`, `…/com.apple.motionapp`, `…/com.apple.Compressor`, `…/com.apple.logic10` — the only `com.apple.*` caches ever touched (locked while the app is open) |
+| CapCut cache | `~/Movies/CapCut/User Data/Cache/*` — never `User Data/Projects` (locked while CapCut is open) |
 
 **Moved to the Trash** — anything that is a real file, only after you review it:
 
@@ -38,6 +41,9 @@ Junk0 is built around one rule: **only remove things that are either rebuilt aut
 | Old Adobe version leftovers | Older After Effects settings folders, Photoshop UXP plugin data, Photoshop/Illustrator support folders. The highest version is always kept. | Selected |
 | Old Premiere preview renders | Files in `Adobe Premiere Pro * Previews` folders older than *N* days | Selected |
 | Old Premiere autosaves | Files in `Adobe Premiere Pro Auto-Save` folders older than *N* days | Not selected |
+| DaVinci Resolve render cache | `CacheClip/<project-UUID>/` folders found under your project folders, named from each `Info.txt`. `CacheClip/audio` (Fairlight profiles) is never listed. Locked while Resolve is open. | Selected, except projects used in the last *N* days |
+| Final Cut Pro generated files | Inside each `.fcpbundle` found under your project folders: `<event>/Render Files`, `<event>/Analysis Files`, `<event>/Transcoded Media`. Locked while Final Cut is open. | Render & analysis selected; transcoded (optimized/proxy) not selected |
+| App Store app caches | `~/Library/Containers/<app>/Data/Library/Caches` over 20 MB — never Apple apps, open apps, password managers, cloud-drive providers, Finder extensions or device-management tools | Selected |
 | Unusual file names | Any candidate above whose name has control characters or leading/trailing spaces | Not selected |
 
 ## Never touched
@@ -45,7 +51,8 @@ Junk0 is built around one rule: **only remove things that are either rebuilt aut
 - Documents, Desktop, Pictures, Music, Movies, Photos and Mail libraries — except Premiere preview/autosave folders you review
 - Your current app settings, preferences, licenses and plugins
 - Browser profiles: logins, passwords, bookmarks, history, open tabs
-- Apple system caches (`com.apple.*`) and anything outside your home folder
+- Apple system caches (`com.apple.*`) — except the four Apple pro-app caches listed above — and anything outside your home folder
+- Resolve project databases, Fairlight profiles and gallery stills; Final Cut libraries themselves, their media and backups; CapCut projects
 - Time Machine snapshots, iOS backups, macOS updates
 - Folders you've excluded
 

@@ -81,6 +81,7 @@ struct Entry: Identifiable {
   let date: Date?
   var on: Bool
   var note = ""
+  var title: String? = nil     // friendly name for the review list (e.g. a Resolve project name)
 }
 
 enum Kind { case auto, review }
@@ -100,6 +101,7 @@ struct CleanGroup: Identifiable {
   var entries: [Entry] = []    // .review: picked one by one, moved to Trash
 
   var selectedBytes: Int64 {
+    guard blocker.isEmpty else { return 0 }
     switch kind {
     case .auto: return on && blocker.isEmpty ? bytes : 0
     case .review: return entries.filter(\.on).reduce(0) { $0 + $1.bytes }
@@ -125,7 +127,7 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
     if !needles.isEmpty && run.has(needles) { g.blocker = label }
     if g.bytes > 1_000_000 { out.append(g) }
   }
-  func entry(_ u: URL, on: Bool, note: String = "") -> Entry? {
+  func entry(_ u: URL, on: Bool, note: String = "", title: String? = nil) -> Entry? {
     guard safe(u, ex) else { return nil }
     var n = note
     if isCloud(u) { n += (n.isEmpty ? "" : " · ") + "Cloud folder — removal syncs to everyone" }
@@ -134,13 +136,17 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
                            note: "Unusual name (hidden characters) — check before removing"))
       return nil
     }
-    return Entry(url: u, bytes: size(u), date: modDate(u), on: on, note: n)
+    return Entry(url: u, bytes: size(u), date: modDate(u), on: on, note: n, title: title)
   }
-  func review(_ id: String, _ name: String, _ detail: String, _ icon: String, _ tint: Color, _ es: [Entry]) {
+  func review(_ id: String, _ name: String, _ detail: String, _ icon: String, _ tint: Color, _ es: [Entry],
+              needles: [String] = [], label: String = "") {
+    let es = es.filter { $0.bytes > 0 }
     guard !es.isEmpty else { return }
     var g = CleanGroup(id: id, name: name, detail: detail, icon: icon, tint: tint, kind: .review)
     g.entries = es.sorted { $0.bytes > $1.bytes }
     g.bytes = es.reduce(0) { $0 + $1.bytes }
+    g.needles = needles
+    if !needles.isEmpty && run.has(needles) { g.blocker = label }
     out.append(g)
   }
 
@@ -214,6 +220,7 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
   // Review: Premiere previews & autosaves older than N days
   let cutoff = Date().addingTimeInterval(-Double(days) * 86_400)
   var autos: [Entry] = [], prevs: [Entry] = [], seen = Set<String>()
+  var cacheClips: [URL] = [], fcpLibs: [URL] = []      // found on the same walk
   let rootURLs = roots.map { URL(fileURLWithPath: $0) } + [home / "Documents/Adobe/Premiere Pro"]
   for r in rootURLs where exists(r) && !underExcluded(r, ex) {
     guard let e = fm.enumerator(at: r, includingPropertiesForKeys: [.isDirectoryKey],
@@ -221,6 +228,8 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
     for case let u as URL in e {
       if underExcluded(u, ex) { e.skipDescendants(); continue }
       let n = u.lastPathComponent
+      if n == "CacheClip" { if seen.insert(u.path).inserted { cacheClips.append(u) }; e.skipDescendants(); continue }
+      if u.pathExtension.lowercased() == "fcpbundle" { if seen.insert(u.path).inserted { fcpLibs.append(u) }; e.skipDescendants(); continue }
       let isAuto = n == "Adobe Premiere Pro Auto-Save"
       let isPrev = n.hasPrefix("Adobe Premiere Pro") && n.hasSuffix("Previews")
       guard isAuto || isPrev else { continue }
@@ -239,6 +248,74 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
          "play.rectangle.on.rectangle", .indigo, prevs)
   review("pr_autosaves", "Old Premiere autosaves", "Older than \(days) days — off by default, tick to move to Trash",
          "doc.badge.clock", .pink, autos)
+
+  // DaVinci Resolve: render cache, one folder per project (CacheClip/<UUID>/ with Info.txt naming the project).
+  // The shared CacheClip/audio folder holds Fairlight user profiles — never listed.
+  let uuidRe = try? NSRegularExpression(pattern: "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$")
+  func isUUID(_ s: String) -> Bool { uuidRe?.firstMatch(in: s, range: NSRange(s.startIndex..., in: s)) != nil }
+  func resolveProject(_ d: URL) -> String? {
+    guard let t = try? String(contentsOf: d / "Info.txt", encoding: .utf8) else { return nil }
+    for l in t.split(whereSeparator: \.isNewline) where l.hasPrefix("Project Name:") {
+      return l.dropFirst("Project Name:".count).trimmingCharacters(in: .whitespaces)
+    }
+    return nil
+  }
+  var resolve: [Entry] = []
+  for cc in cacheClips {
+    for d in kids(cc) where isUUID(d.lastPathComponent) {
+      let recent = (modDate(d) ?? .distantPast) >= cutoff
+      let project = resolveProject(d) ?? "Unnamed project"
+      if let x = entry(d, on: !recent, note: recent ? "Render cache · used in the last \(days) days" : "Render cache",
+                       title: "Project: \(project)") { resolve.append(x) }
+    }
+  }
+  review("resolve_cache", "DaVinci Resolve render cache", "Per project — Resolve re-renders it when needed",
+         "film", .red, resolve, needles: ["davinci resolve"], label: "DaVinci Resolve")
+  auto("resolve_logs", "DaVinci Resolve logs", "Diagnostic logs and crash archives", "doc.text.magnifyingglass", .red,
+       kids(AS / "Blackmagic Design/DaVinci Resolve/logs"), needles: ["davinci resolve"], label: "DaVinci Resolve")
+
+  // Final Cut Pro: generated files inside each library — the same files as File › Delete Generated Library Files.
+  var fcp: [Entry] = []
+  for lib in fcpLibs {
+    let libName = lib.deletingPathExtension().lastPathComponent
+    for ev in kids(lib) {
+      for (folder, on, what) in [("Render Files", true, "Render files"), ("Analysis Files", true, "Analysis files"),
+                                 ("Transcoded Media", false, "Optimized & proxy media — slow to recreate")] {
+        let u = ev / folder
+        guard exists(u) else { continue }
+        if let x = entry(u, on: on, note: what, title: "\(libName) › \(ev.lastPathComponent)") { fcp.append(x) }
+      }
+    }
+  }
+  review("fcp_generated", "Final Cut Pro generated files", "Render, analysis & transcoded files inside your libraries",
+         "scissors", .gray, fcp, needles: ["final cut pro"], label: "Final Cut Pro")
+
+  // Apple pro apps: only these four caches are allowed through the "never touch com.apple.*" rule.
+  auto("apple_pro", "Final Cut, Motion, Compressor & Logic caches", "App caches — rebuilt automatically", "wand.and.stars", .indigo,
+       ["com.apple.FinalCut", "com.apple.motionapp", "com.apple.Compressor", "com.apple.logic10"].map { C / $0 },
+       needles: ["final cut pro", "motion", "compressor", "logic pro"], label: "Apple pro apps")
+
+  // CapCut: only its Cache folder — never Projects (your drafts).
+  auto("capcut", "CapCut cache", "Effects & smart-crop cache — your projects are not touched", "scissors.badge.ellipsis", .cyan,
+       kids(home / "Movies/CapCut/User Data/Cache"), needles: ["capcut"], label: "CapCut")
+
+  // App Store / sandboxed apps (Affinity, Pixelmator, …): their Caches folder inside ~/Library/Containers.
+  // Password managers, cloud-drive providers and device-management tools are never listed.
+  let sensitive = ["fileprovider", "finder", "bitwarden", "1password", "lastpass", "dashlane", "keychain", "onedrive",
+                   "dropbox", "googledrive", "google.drive", "box.desktop", "jamf", "companyportal", "sso", "loginhelper"]
+  var sandboxed: [Entry] = []
+  for c in kids(L / "Containers") {
+    let id = c.lastPathComponent, lid = id.lowercased()
+    if lid.hasPrefix("com.apple.") || lid.hasPrefix("local.junk") || sensitive.contains(where: { lid.contains($0) })
+        || run.owns(cacheFolder: id) { continue }
+    let cache = c / "Data/Library/Caches"
+    guard exists(cache), size(cache) > 20_000_000 else { continue }
+    let app = NSWorkspace.shared.urlForApplication(withBundleIdentifier: id)
+      .map { fm.displayName(atPath: $0.path).replacingOccurrences(of: ".app", with: "") } ?? id
+    if let x = entry(cache, on: true, note: id, title: app) { sandboxed.append(x) }
+  }
+  review("sandboxed", "App Store app caches", "Affinity, Pixelmator & other sandboxed apps — rebuilt automatically",
+         "app.badge", .mint, sandboxed)
 
   review("unusual", "Unusual file names", "Names with hidden characters — review each one",
          "exclamationmark.triangle", .orange, unusual)
@@ -266,6 +343,10 @@ func cleanAll(_ groups: [CleanGroup], ex: [String], run: RunningApps) -> CleanRe
         do { try fm.removeItem(at: u) } catch { r.failed += 1 }
       }
     case .review:
+      if !g.blocker.isEmpty || (!g.needles.isEmpty && run.has(g.needles)) {
+        if g.entries.contains(where: \.on) { r.skipped.append(g.name) }
+        continue
+      }
       for e in g.entries where e.on && safe(e.url, ex) {
         do { try fm.trashItem(at: e.url, resultingItemURL: nil); r.trashed += e.bytes } catch { r.failed += 1 }
       }

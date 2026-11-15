@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.3 — 2026-11-15
+- **DaVinci Resolve:** render cache listed per project (by project name), plus Resolve logs. Fairlight profiles are never touched.
+- **Final Cut Pro:** render, analysis and transcoded files inside libraries (optimized/proxy media off by default).
+- **Final Cut, Motion, Compressor & Logic caches** — the only Apple caches Junk0 touches.
+- **CapCut** cache (never projects) and **App Store app caches** (Affinity, Pixelmator, …), skipping password managers, cloud drives and device-management apps.
+- Review groups are now locked while their app is open, too.
+
 ## 2.2 — 2026-11-15
 - New app icon: stacked layers dissolving into AI sparkles (black tile, violet glow), matching the GitHub page.
 - The zero-ring icon version is kept as git tag `v2.1-zero-icon`.
