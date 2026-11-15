@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2 — 2026-11-15
+- New app icon: stacked layers dissolving into AI sparkles (black tile, violet glow), matching the GitHub page.
+- The zero-ring icon version is kept as git tag `v2.1-zero-icon`.
+
 ## 2.1 — 2026-11-15
 - Renamed to **Junk0** ("junk, zeroed out"); the previous name is kept as git tag `junk-cleaner-2.0`.
 - New icon: a zero ring with AI sparkles on a black tile with a violet glow.
