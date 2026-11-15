@@ -107,10 +107,10 @@ func demoGroups() -> [CleanGroup] {
     shot("review-installers" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("installers"))) }
     shot("review-premiere" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("pr_previews"))) }
     shot("review-old-adobe" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("old_adobe"))) }
-    shot("review-resolve" + sfx, CGSize(width: 680, height: 440), dark: dark) { ReviewSheet(group: .constant(group("resolve_cache"))) }
-    shot("review-fcp" + sfx, CGSize(width: 680, height: 440), dark: dark) { ReviewSheet(group: .constant(group("fcp_generated"))) }
-    shot("review-sandboxed" + sfx, CGSize(width: 680, height: 330), dark: dark) { ReviewSheet(group: .constant(group("sandboxed"))) }
-    shot("review-unusual" + sfx, CGSize(width: 680, height: 300), dark: dark) { ReviewSheet(group: .constant(group("unusual"))) }
+    shot("review-resolve" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("resolve_cache"))) }
+    shot("review-fcp" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("fcp_generated"))) }
+    shot("review-sandboxed" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("sandboxed"))) }
+    shot("review-unusual" + sfx, CGSize(width: 680, height: 540), dark: dark) { ReviewSheet(group: .constant(group("unusual"))) }
     shot("settings" + sfx, CGSize(width: 580, height: 560), dark: dark) { SettingsSheet(prefs: prefs) {} }
     shot("scanning" + sfx, main, dark: dark) { ContentView(model: model(.scanning)) }
     shot("done" + sfx, main, dark: dark) {
