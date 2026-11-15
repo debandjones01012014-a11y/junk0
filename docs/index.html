@@ -77,10 +77,18 @@ ol.steps li:before{content:counter(s);position:absolute;left:18px;top:14px;width
 .gallery img{display:block;width:100%;height:auto}
 .gallery figcaption{padding:14px 18px;font-size:15px;color:var(--muted)}
 .gallery figcaption b{color:var(--fg)}
-.notice{display:flex;gap:14px;align-items:flex-start;max-width:720px;margin:28px auto 0;text-align:left;background:rgba(255,159,10,.10);border:1px solid rgba(255,159,10,.45);border-radius:16px;padding:16px 20px;font-size:15px;line-height:1.5}
-.notice b{color:var(--fg)}
-.notice .ico{font-size:22px;line-height:1.2}
-.notice a{font-weight:600}
+dialog.dl-dialog{margin:auto;border:none;padding:0;border-radius:22px;max-width:520px;width:calc(100% - 32px);background:var(--card);color:var(--fg);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+dialog.dl-dialog::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.dl-inner{padding:28px 28px 24px;position:relative}
+.dl-inner .tag{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:4px 10px;background:rgba(255,159,10,.15);color:#ff9f0a;margin-bottom:12px}
+.dl-inner h3{font-size:22px;margin-bottom:10px}
+.dl-inner p{color:var(--muted);font-size:15px;line-height:1.55;margin-bottom:10px}
+.dl-inner p b{color:var(--fg)}
+.dl-agree{display:flex;gap:10px;align-items:flex-start;margin:16px 0 18px;font-size:15px;cursor:pointer}
+.dl-agree input{width:20px;height:20px;margin-top:1px;accent-color:var(--accent);flex:none}
+.dl-go{width:100%;border:none;cursor:pointer;font:inherit;font-weight:600;padding:13px 20px;border-radius:980px;background:var(--accent);color:var(--accent-fg)}
+.dl-go:disabled{opacity:.35;cursor:not-allowed}
+.dl-x{position:absolute;top:14px;right:16px;border:none;background:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
 .testcard{max-width:720px;margin:28px auto 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
 .testcard h3{font-size:19px;margin-bottom:8px}
 .testcard ul{margin:8px 0 14px 20px;color:var(--muted);font-size:15px}
@@ -100,11 +108,10 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
     <h1>Take your disk back.</h1>
     <p class="lead">A small, native Mac app that finds the caches, renders and leftovers your creative apps leave behind — and removes only what's safe, only after you say so.</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Download for Mac</a>
+      <a class="btn primary dl" href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Download for Mac</a>
       <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk0">View on GitHub</a>
     </div>
     <p class="small">Free &amp; open source · macOS 14 or later · Apple Silicon &amp; Intel</p>
-    <div class="notice"><span class="ico">🧪</span><div><b>Personal side project — early release.</b> I built Junk0 for my own Mac and made it public because it worked for me. It hasn’t been tested across many Macs yet, so it’s <b>not recommended for business or work-critical machines</b>. Back up first, try the read-only scan, and <a href="/issues/new/choose">tell me what you find</a>.</div></div>
 
     <div class="window shot">
       <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
@@ -167,11 +174,11 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
     <h2>Install in a minute.</h2>
     <p class="sub">The app isn't notarized by Apple yet, so macOS asks you to approve it once.</p>
     <ol class="steps">
-      <li>Download the latest <b>Junk0.zip</b> from <a href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Releases</a> and unzip it.</li>
+      <li>Download the latest <b>Junk0.zip</b> from <a class="dl" href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Releases</a> and unzip it.</li>
       <li>Move <b>Junk0.app</b> into your Applications folder and open it.</li>
       <li>If macOS blocks it, open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. Only needed once.</li>
     </ol>
-    <div class="testcard"><h3>🙏 Help test Junk0</h3><p class="small" style="font-size:15px">So far it’s been tested properly on one Mac — mine. If you try it, a short report helps a lot:</p><ul><li>✅ It worked — your Mac, macOS version, apps, and space freed</li><li>⚠️ Something looked wrong — an item that shouldn’t be listed, or junk it missed</li><li>💡 An idea — another app to support, a safety feature</li></ul><a class="btn primary" href="/issues/new/choose">Send a test report</a></div>
+    <div class="testcard"><h3>🙏 Help test Junk0</h3><p class="small" style="font-size:15px">So far it’s been tested properly on one Mac — mine. If you try it, a short report helps a lot:</p><ul><li>✅ It worked — your Mac, macOS version, apps, and space freed</li><li>⚠️ Something looked wrong — an item that shouldn’t be listed, or junk it missed</li><li>💡 An idea — another app to support, a safety feature</li></ul><a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk0/issues/new/choose">Send a test report</a></div>
   </section>
 
   <footer>
@@ -179,5 +186,30 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
     <a href="https://github.com/debandjones01012014-a11y/junk0">Source on GitHub</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/USER_GUIDE.md">User Guide</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/CHANGELOG.md">Changelog</a>
   </footer>
 </div>
+<dialog class="dl-dialog" id="dl-dialog" aria-labelledby="dl-title">
+  <div class="dl-inner">
+    <button class="dl-x" id="dl-close" aria-label="Close">&times;</button>
+    <span class="tag">🧪 Personal side project · early release</span>
+    <h3 id="dl-title">Before you download</h3>
+    <p>I built Junk0 for my own Mac and made it public because it worked for me. It <b>hasn’t been tested across many Macs</b> yet, so it’s <b>not recommended for business or work-critical machines</b>.</p>
+    <p>Junk0 never deletes anything on its own: it scans, shows you what it found, and removes only what you approve. Real files go to the Trash; only caches and logs that apps rebuild are deleted permanently.</p>
+    <p><b>Please back up your important projects first</b>, and if you try it, <a href="https://github.com/debandjones01012014-a11y/junk0/issues/new/choose" target="_blank" rel="noopener">tell me what you find</a>.</p>
+    <label class="dl-agree"><input type="checkbox" id="dl-agree"> <span>I understand this is an early personal project and I’ll keep a backup.</span></label>
+    <button class="dl-go" id="dl-ok" disabled>Continue to download</button>
+  </div>
+</dialog>
+<script>
+(function(){
+  var d=document.getElementById('dl-dialog'), ok=document.getElementById('dl-ok'), cb=document.getElementById('dl-agree'), target='';
+  if(!d || typeof d.showModal!=='function') return;   // old browsers: links work normally
+  document.querySelectorAll('a.dl').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); target=a.href; cb.checked=false; ok.disabled=true; d.showModal(); });
+  });
+  cb.addEventListener('change', function(){ ok.disabled=!cb.checked; });
+  ok.addEventListener('click', function(){ if(!cb.checked) return; d.close(); window.location.href=target; });
+  document.getElementById('dl-close').addEventListener('click', function(){ d.close(); });
+  d.addEventListener('click', function(e){ if(e.target===d) d.close(); });
+})();
+</script>
 </body>
 </html>
