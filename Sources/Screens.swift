@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 // Renders documentation screenshots offscreen using sample data (no real files, no screen recording).
-//   JunkCleaner --render-screens <folder>
+//   Junk0 --render-screens <folder>
 
 func demoGroups() -> [CleanGroup] {
   let MB: Int64 = 1_000_000, GB: Int64 = 1_000_000_000

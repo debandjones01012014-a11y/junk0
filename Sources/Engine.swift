@@ -159,7 +159,7 @@ func scanAll(ex: [String], roots: [String], days: Int, run: RunningApps) -> [Cle
   for u in kids(C) {
     let n = u.lastPathComponent.lowercased()
     if skipTop.contains(n) || n.hasPrefix("com.apple.") || n.hasPrefix("com.microsoft.teams")
-        || n.hasPrefix("com.adobe.ame") || n.hasPrefix("local.junkcleaner") { continue }
+        || n.hasPrefix("com.adobe.ame") || n.hasPrefix("local.junkcleaner") || n.hasPrefix("local.junk0") { continue }
     if run.owns(cacheFolder: u.lastPathComponent) { openSkipped += 1; continue }
     appPaths.append(u)
   }

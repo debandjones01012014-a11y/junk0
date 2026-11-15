@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping! A few rules keep Junk Cleaner trustworthy:
+Thanks for helping! A few rules keep Junk0 trustworthy:
 
 1. **Safety first.** A new cleaning rule must target files that are either regenerated automatically
    (then it may be deleted) or that the user reviews one by one (then it must go to the Trash).

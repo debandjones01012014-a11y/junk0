@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1 — 2026-11-15
+- Renamed to **Junk0** ("junk, zeroed out"); the previous name is kept as git tag `junk-cleaner-2.0`.
+- New icon: a zero ring with AI sparkles on a black tile with a violet glow.
+- Violet brand accent across the app and the website.
+
 ## 2.0 — 2026-11-14
 - Rewritten as a native SwiftUI app; scanning and cleaning in Swift (no shell scripts).
 - Review windows for installers, older Adobe versions, Premiere previews/autosaves and unusual file names.

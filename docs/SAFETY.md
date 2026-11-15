@@ -1,6 +1,6 @@
 # Safety model
 
-Junk Cleaner is built around one rule: **only remove things that are either rebuilt automatically, or that you picked yourself — and never anything else.**
+Junk0 is built around one rule: **only remove things that are either rebuilt automatically, or that you picked yourself — and never anything else.**
 
 ## Hard guarantees (enforced in `Sources/Engine.swift`)
 

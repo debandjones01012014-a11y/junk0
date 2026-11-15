@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Junk Cleaner for Mac</title>
+<title>Junk0 for Mac</title>
 <meta name="description" content="A small, native macOS app that safely removes caches, logs and leftovers — only after you confirm.">
 <link rel="icon" href="assets/icon.png">
 <style>
 :root{
   --bg:#fbfbfd; --fg:#1d1d1f; --muted:#6e6e73; --card:#ffffff; --line:#e5e5ea;
-  --accent:#0071e3; --accent-fg:#fff; --row:#f5f5f7; --shadow:0 20px 60px rgba(0,0,0,.12);
+  --accent:#6e4bff; --accent-fg:#fff; --row:#f5f5f7; --shadow:0 20px 60px rgba(0,0,0,.12);
 }
 @media (prefers-color-scheme:dark){ :root{
   --bg:#000; --fg:#f5f5f7; --muted:#a1a1a6; --card:#1c1c1e; --line:#2c2c2e;
-  --accent:#2997ff; --row:#2c2c2e; --shadow:0 20px 60px rgba(0,0,0,.6);
+  --accent:#a28cff; --row:#2c2c2e; --shadow:0 20px 60px rgba(0,0,0,.6);
 }}
 *{box-sizing:border-box;margin:0}
 body{font:17px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
@@ -24,7 +24,7 @@ nav b{display:flex;align-items:center;gap:8px;font-weight:600}
 nav img{width:24px;height:24px}
 nav a{margin-left:20px;color:var(--fg);opacity:.8}
 .hero{text-align:center;padding:64px 0 40px}
-.hero img.icon{width:148px;height:148px;filter:drop-shadow(0 18px 30px rgba(40,90,255,.35))}
+.hero img.icon{width:148px;height:148px;filter:drop-shadow(0 18px 30px rgba(110,75,255,.45))}
 h1{font:700 clamp(40px,7vw,72px)/1.05 -apple-system,"SF Pro Display",sans-serif;letter-spacing:-.02em;margin:24px 0 12px}
 .lead{font-size:clamp(19px,2.4vw,24px);color:var(--muted);max-width:640px;margin:0 auto}
 .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:32px 0 10px}
@@ -60,7 +60,7 @@ h2{font:700 clamp(30px,4.5vw,44px)/1.1 -apple-system,"SF Pro Display",sans-serif
 .card .e{font-size:28px}
 .card h3{font-size:19px;margin:10px 0 6px}
 .card p{color:var(--muted);font-size:15px}
-.stat{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#33d9f2,#2e73ff 55%,#7340f2);color:#fff;border-radius:24px}
+.stat{text-align:center;padding:40px 20px;background:linear-gradient(170deg,#0b0a12 0%,#24185e 55%,#8c6dff 100%);color:#fff;border-radius:24px}
 .stat b{font:700 clamp(56px,10vw,104px)/1 -apple-system,"SF Pro Display",sans-serif;display:block;letter-spacing:-.03em}
 table{width:100%;border-collapse:collapse;font-size:15px}
 td,th{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
@@ -84,23 +84,23 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 <body>
 <div class="wrap">
   <nav>
-    <b><img src="assets/icon.png" alt="">Junk Cleaner</b>
-    <span><a class="hide" href="#features">Features</a><a class="hide" href="#screens">Screenshots</a><a class="hide" href="#safety">Safety</a><a href="https://github.com/debandjones01012014-a11y/junk-cleaner">GitHub</a></span>
+    <b><img src="assets/icon.png" alt="">Junk0</b>
+    <span><a class="hide" href="#features">Features</a><a class="hide" href="#screens">Screenshots</a><a class="hide" href="#safety">Safety</a><a href="https://github.com/debandjones01012014-a11y/junk0">GitHub</a></span>
   </nav>
 
   <header class="hero">
-    <img class="icon" src="assets/icon.png" alt="Junk Cleaner icon">
+    <img class="icon" src="assets/icon.png" alt="Junk0 icon">
     <h1>Take your disk back.</h1>
     <p class="lead">A small, native Mac app that finds the caches, logs and leftovers filling your drive — and removes only what's safe, only after you say so.</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk-cleaner/releases/latest">Download for Mac</a>
-      <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk-cleaner">View on GitHub</a>
+      <a class="btn primary" href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Download for Mac</a>
+      <a class="btn ghost" href="https://github.com/debandjones01012014-a11y/junk0">View on GitHub</a>
     </div>
     <p class="small">Free &amp; open source · macOS 14 or later · Apple Silicon &amp; Intel</p>
 
     <div class="window shot">
       <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
-      <picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/main-dark.png"><img src="screenshots/main-light.png" alt="Junk Cleaner main window"></picture>
+      <picture><source media="(prefers-color-scheme: dark)" srcset="screenshots/main-dark.png"><img src="screenshots/main-light.png" alt="Junk0 main window"></picture>
     </div>
   </header>
 
@@ -110,7 +110,7 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 
   <section id="features">
     <h2>Careful by design.</h2>
-    <p class="sub">Most cleaners ask you to trust them. Junk Cleaner shows you everything and lets you decide.</p>
+    <p class="sub">Most cleaners ask you to trust them. Junk0 shows you everything and lets you decide.</p>
     <div class="grid">
       <div class="card"><div class="e">✋</div><h3>Nothing without your OK</h3><p>Scanning is read-only. The confirmation tells you exactly what is deleted and what goes to the Trash.</p></div>
       <div class="card"><div class="e">🔒</div><h3>Open apps are protected</h3><p>Caches of running apps are skipped automatically, and checked again right before cleaning.</p></div>
@@ -134,7 +134,7 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 
   <section id="safety">
     <h2>Exactly what it cleans.</h2>
-    <p class="sub">Every rule is documented in the open. <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/docs/SAFETY.md">Read the full safety model →</a></p>
+    <p class="sub">Every rule is documented in the open. <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/SAFETY.md">Read the full safety model →</a></p>
     <div class="tablewrap"><table>
       <tr><th>Group</th><th>How</th><th>Notes</th></tr>
       <tr><td>After Effects disk cache &amp; logs</td><td><span class="tag del">Deleted</span></td><td>Locked while After Effects is open</td></tr>
@@ -153,15 +153,15 @@ footer{padding:80px 0 40px;text-align:center;color:var(--muted);font-size:13px}
     <h2>Install in a minute.</h2>
     <p class="sub">The app isn't notarized by Apple yet, so macOS asks you to approve it once.</p>
     <ol class="steps">
-      <li>Download the latest <b>JunkCleaner.zip</b> from <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/releases/latest">Releases</a> and unzip it.</li>
-      <li>Move <b>Junk Cleaner.app</b> into your Applications folder and open it.</li>
+      <li>Download the latest <b>Junk0.zip</b> from <a href="https://github.com/debandjones01012014-a11y/junk0/releases/latest">Releases</a> and unzip it.</li>
+      <li>Move <b>Junk0.app</b> into your Applications folder and open it.</li>
       <li>If macOS blocks it, open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. Only needed once.</li>
     </ol>
   </section>
 
   <footer>
-    Junk Cleaner is open source under the MIT License. Use at your own risk and keep backups.<br>
-    <a href="https://github.com/debandjones01012014-a11y/junk-cleaner">Source on GitHub</a> · <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/docs/USER_GUIDE.md">User Guide</a> · <a href="https://github.com/debandjones01012014-a11y/junk-cleaner/blob/main/CHANGELOG.md">Changelog</a>
+    Junk0 is open source under the MIT License. Use at your own risk and keep backups.<br>
+    <a href="https://github.com/debandjones01012014-a11y/junk0">Source on GitHub</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/docs/USER_GUIDE.md">User Guide</a> · <a href="https://github.com/debandjones01012014-a11y/junk0/blob/main/CHANGELOG.md">Changelog</a>
   </footer>
 </div>
 </body>

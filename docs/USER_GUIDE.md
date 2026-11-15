@@ -1,4 +1,4 @@
-# Junk Cleaner — User Guide
+# Junk0 — User Guide
 
 This guide walks through every screen, every setting and every cleaning group, with real screenshots
 and step-by-step use cases. If you only want the safety rules, see [SAFETY.md](SAFETY.md).
@@ -24,7 +24,7 @@ and step-by-step use cases. If you only want the safety rules, see [SAFETY.md](S
 ## 1. Quick start (2 minutes)
 
 1. **Quit** After Effects, Premiere Pro, Media Encoder, your browsers and Teams. *(Optional — open apps are skipped safely, but you'll clean more if they're closed.)*
-2. **Open Junk Cleaner.** It starts scanning straight away.
+2. **Open Junk0.** It starts scanning straight away.
 3. **Look at the list.** Every group shows its size. Switches are on for caches that are safe to delete.
 4. **Click Review…** on any group that has one, and tick only what you want to remove.
 5. **Click Clean** at the bottom right and confirm.
@@ -200,7 +200,7 @@ The result screen shows:
 The most common case: After Effects and Premiere caches have grown to tens or hundreds of GB.
 
 1. Save your work and **quit After Effects, Premiere Pro and Media Encoder**.
-2. Open Junk Cleaner → wait for the scan.
+2. Open Junk0 → wait for the scan.
 3. Make sure **After Effects disk cache**, **After Effects log files** and **Adobe Media Cache + Peak files** are on.
 4. Click **Clean** → confirm.
 5. Optional: in After Effects, *Settings → Media & Disk Cache*, set a **maximum disk cache size** so it can't grow unchecked again.
@@ -247,7 +247,7 @@ After a yearly Adobe upgrade, settings and plugin data of the old version stay b
 
 ### G. "Monthly maintenance"
 
-Once a month: quit heavy apps → open Junk Cleaner → **Clean** with defaults → empty the Trash.
+Once a month: quit heavy apps → open Junk0 → **Clean** with defaults → empty the Trash.
 Defaults are deliberately conservative: only caches and clearly-old leftovers are selected.
 
 ### H. "I share a OneDrive / iCloud project folder with a team"
@@ -311,7 +311,7 @@ macOS may also take a moment to update the free-space figure.
 
 | Problem | Fix |
 |---|---|
-| *"Junk Cleaner can't be opened because Apple cannot check it for malicious software."* | System Settings → Privacy & Security → **Open Anyway**. Only once. |
+| *"Junk0 can't be opened because Apple cannot check it for malicious software."* | System Settings → Privacy & Security → **Open Anyway**. Only once. |
 | A group stays locked after quitting the app | Some apps keep a helper running for a few seconds. Wait, then press **↻**. |
 | *"N items couldn't be removed"* | Those files were in use. Quit the related app and clean again. |
 | Scan seems slow | Large Premiere project folders take time to search. Remove very large drives from *Premiere project folders* if you don't need them. |
@@ -332,5 +332,5 @@ macOS may also take a moment to update the free-space figure.
 | **Autosave** | Copies of your Premiere project saved automatically every few minutes. |
 | **Log file** | Plain-text diagnostic record an app writes while running. |
 | **.dmg / .pkg** | Disk image / installer package — usually how Mac apps are downloaded. |
-| **Excluded folder** | A folder Junk Cleaner promises never to scan or touch. |
+| **Excluded folder** | A folder Junk0 promises never to scan or touch. |
 | **Notarization** | Apple's malware check for apps distributed outside the App Store. |

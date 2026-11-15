@@ -72,6 +72,7 @@ struct ContentView: View {
       }
     }
     .frame(width: 620, height: 700)
+    .tint(brandViolet)
     .background(.background)
     .task { if !m.demo { await m.scan() } }
     .sheet(item: $reviewing) { r in
@@ -100,7 +101,7 @@ struct ContentView: View {
     HStack(spacing: 16) {
       Image(nsImage: NSApp.applicationIconImage).resizable().frame(width: 64, height: 64)
       VStack(alignment: .leading, spacing: 2) {
-        Text("Junk Cleaner").font(.system(size: 22, weight: .semibold))
+        (Text("Junk") + Text("0").foregroundStyle(brandViolet).fontDesign(.rounded)).font(.system(size: 22, weight: .semibold))
         Group {
           if case .ready = m.phase { Text("\(fmt(m.total)) found") } else { Text("Caches, logs and leftovers — safely") }
         }.font(.subheadline).foregroundStyle(.secondary)
@@ -242,6 +243,7 @@ struct ReviewSheet: View {
       }.padding(16)
     }
     .frame(width: 680, height: 540)
+    .tint(brandViolet)
   }
 }
 
@@ -265,6 +267,7 @@ struct SettingsSheet: View {
       HStack { Spacer(); Button("Done & Rescan") { done() }.buttonStyle(.borderedProminent).keyboardShortcut(.defaultAction) }
     }
     .padding(22).frame(width: 580)
+    .tint(brandViolet)
   }
 
   func folders(_ title: String, _ sub: String, _ icon: String, _ list: Binding<[String]>) -> some View {
@@ -306,7 +309,7 @@ struct SettingsSheet: View {
 
 // MARK: - Entry point
 
-struct JunkCleanerApp: App {
+struct Junk0App: App {
   var body: some Scene {
     WindowGroup { ContentView() }.windowResizability(.contentSize)
   }
@@ -326,6 +329,9 @@ struct JunkCleanerApp: App {
       }
       exit(0)
     }
-    JunkCleanerApp.main()
+    Junk0App.main()
   }
 }
+
+/// Junk0 brand accent (matches the icon glow).
+let brandViolet = Color(red: 0.43, green: 0.29, blue: 1.0)

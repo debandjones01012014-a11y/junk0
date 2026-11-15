@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/assets/icon.png" width="128" alt="Junk Cleaner icon">
+  <img src="docs/assets/icon.png" width="128" alt="Junk0 icon">
 </p>
 
-<h1 align="center">Junk Cleaner</h1>
+<h1 align="center">Junk0</h1>
 
 <p align="center">
   <b>A careful, native macOS app that finds the caches, logs and leftovers eating your disk —<br>
@@ -19,7 +19,7 @@
 
 <p align="center">
   <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-000?logo=apple">
-  <img alt="Universal" src="https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-0071e3">
+  <img alt="Universal" src="https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-6e4bff">
   <img alt="SwiftUI" src="https://img.shields.io/badge/SwiftUI-native-orange?logo=swift">
   <img alt="No network" src="https://img.shields.io/badge/network-none-34c759">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-lightgrey">
@@ -28,7 +28,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/main-dark.png">
-    <img src="docs/screenshots/main-light.png" width="620" alt="Junk Cleaner main window">
+    <img src="docs/screenshots/main-light.png" width="620" alt="Junk0 main window">
   </picture>
 </p>
 
@@ -68,7 +68,7 @@ On the Mac this app was first built for, a disk check found:
 | **Freed in the first clean** | **327 GB** (free space went from 83 GB to 412 GB) |
 
 None of it was needed — and none of it was visible in Finder. General-purpose "cleaner" apps either missed it or
-wanted to delete far more than was safe. Junk Cleaner was written to do one thing well: **show exactly where the space
+wanted to delete far more than was safe. Junk0 was written to do one thing well: **show exactly where the space
 went, let you decide, and never touch your own work.**
 
 ## Highlights
@@ -118,7 +118,7 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 
 ## Who it's for — use cases
 
-| You are… | What Junk Cleaner does for you | Guide |
+| You are… | What Junk0 does for you | Guide |
 |---|---|---|
 | 🎬 **A video editor / motion designer** whose disk keeps filling up | Clears After Effects cache & logs and Adobe Media Cache — often 50–300 GB | [Use case A](docs/USER_GUIDE.md#a-my-disk-is-suddenly-full-and-i-edit-video) |
 | 🗂️ **Juggling several live projects** | Exclude the folders you're working in; everything inside is untouchable | [Use case B](docs/USER_GUIDE.md#b-im-in-the-middle-of-three-projects--dont-touch-them) |
@@ -131,10 +131,10 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 
 ## Install
 
-1. Download **`JunkCleaner-<version>.zip`** from the [latest release](../../releases/latest) and unzip it.
-2. Drag **Junk Cleaner.app** into your **Applications** folder.
+1. Download **`Junk0-<version>.zip`** from the [latest release](../../releases/latest) and unzip it.
+2. Drag **Junk0.app** into your **Applications** folder.
 3. Open it. Because the app isn't notarized by Apple yet, macOS blocks the first launch:
-   open **System Settings → Privacy & Security**, scroll to the message about Junk Cleaner and click **Open Anyway**.
+   open **System Settings → Privacy & Security**, scroll to the message about Junk0 and click **Open Anyway**.
    You only need to do this once.
 
 **Requirements:** macOS 14 Sonoma or later · Apple Silicon or Intel · ~3 MB of disk space.
@@ -142,7 +142,7 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 ## Using it
 
 1. **Quit** heavy apps (After Effects, Premiere, browsers, Teams) to include their caches — optional but recommended.
-2. **Open Junk Cleaner**; it scans automatically (20–60 s).
+2. **Open Junk0**; it scans automatically (20–60 s).
 3. **Switch** cache groups on/off, and click **Review…** on file groups to pick individual files.
 4. Use **⚙ Settings** to add excluded folders, choose Premiere project folders and the age for old Premiere files.
 5. Click **Clean**, read the confirmation, confirm.
@@ -219,7 +219,7 @@ More in the [User Guide FAQ](docs/USER_GUIDE.md#9-faq).
 
 ```bash
 git clone <this repository>
-cd JunkCleaner
+cd Junk0
 ./scripts/build.sh                  # universal app in build/
 ./scripts/build.sh --zip            # + release zip
 ./scripts/build.sh --install        # + copy to ~/Applications
@@ -228,8 +228,8 @@ cd JunkCleaner
 No Xcode project or dependencies — just Swift and the macOS SDK. Useful extras:
 
 ```bash
-"build/Junk Cleaner.app/Contents/MacOS/JunkCleaner" --scan-report             # print what a scan finds, delete nothing
-open -W -n "build/Junk Cleaner.app" --args --render-screens "$PWD/docs/screenshots"   # regenerate screenshots (sample data)
+"build/Junk0.app/Contents/MacOS/Junk0" --scan-report             # print what a scan finds, delete nothing
+open -W -n "build/Junk0.app" --args --render-screens "$PWD/docs/screenshots"   # regenerate screenshots (sample data)
 ```
 
 Details and troubleshooting: [docs/BUILDING.md](docs/BUILDING.md).
@@ -237,7 +237,7 @@ Details and troubleshooting: [docs/BUILDING.md](docs/BUILDING.md).
 ## Project layout
 
 ```
-JunkCleaner/
+Junk0/
 ├── Sources/
 │   ├── Engine.swift        scanning, safety rules, cleaning (no UI)
 │   ├── App.swift           SwiftUI: main window, review windows, settings
@@ -276,5 +276,5 @@ before adding a cleaning rule.
 
 Released under the [MIT License](LICENSE).
 
-Junk Cleaner removes files. It is designed to touch only caches, logs and leftovers, and every rule is documented
+Junk0 removes files. It is designed to touch only caches, logs and leftovers, and every rule is documented
 in the open, but you use it at your own risk. Keep a backup (Time Machine) of anything you care about.
