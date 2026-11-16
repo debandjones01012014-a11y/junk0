@@ -33,7 +33,7 @@ This prints each group, its size and whether it's locked by an open app. It neve
 1. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `Resources/Info.plist`.
 2. Add an entry to `CHANGELOG.md`.
 3. `./scripts/build.sh --zip`
-4. Create a GitHub Release tagged `v<version>` and attach `build/Junk0-<version>.zip`.
+4. Create a GitHub Release tagged `v<version>` and attach `build/Junk0-<version>.zip` **and** a copy named `Junk0.zip` (the website links to `releases/latest/download/Junk0.zip`).
 
 ## Notarization (planned)
 
