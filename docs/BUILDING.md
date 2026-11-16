@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- macOS 14 Sonoma or later
+- macOS 12 Monterey or later
 - Xcode, or the Xcode Command Line Tools (Swift 5.9 or later)
 
 No Xcode project, package manager or third-party dependency is needed — the app is two Swift files compiled with `swiftc`.

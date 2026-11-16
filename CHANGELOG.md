@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5 — 2026-11-16
+- **Runs on older Macs:** now supports macOS 12 Monterey and later (was macOS 14 Sonoma), on Apple Silicon and Intel.
+
 ## 2.4 — 2026-11-15
 - The gear icon is now a labelled **Scan Options** button (sliders icon), so it is clear where to choose scan locations, exclude folders and set what counts as old.
 - The options sheet is titled **Scan Options** to match.

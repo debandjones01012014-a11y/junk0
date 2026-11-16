@@ -358,7 +358,7 @@ macOS may also take a moment to update the free-space figure.
 
 **Does it run in the background?** No. It only does something when you open it and click Clean.
 
-**Does it work on Intel Macs?** Yes. It's a universal app for Apple Silicon and Intel, macOS 14 or later.
+**Does it work on Intel Macs?** Yes. It's a universal app for Apple Silicon and Intel, macOS 12 or later.
 
 **Why does macOS say it can't verify the developer?** The app isn't notarized by Apple yet. See [Install](../README.md#install).
 

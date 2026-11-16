@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-000?logo=apple">
+  <img alt="macOS 12+" src="https://img.shields.io/badge/macOS-12%2B-000?logo=apple">
   <img alt="Universal" src="https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-6e4bff">
   <img alt="SwiftUI" src="https://img.shields.io/badge/SwiftUI-native-orange?logo=swift">
   <img alt="No network" src="https://img.shields.io/badge/network-none-34c759">
@@ -194,10 +194,10 @@ Plain-language explanations of every group: **[User Guide §3](docs/USER_GUIDE.m
 1. Download **`Junk0-<version>.zip`** from the [latest release](../../releases/latest) and unzip it.
 2. Drag **Junk0.app** into your **Applications** folder.
 3. Open it. Because the app isn't notarized by Apple yet, macOS blocks the first launch:
-   open **System Settings → Privacy & Security**, scroll to the message about Junk0 and click **Open Anyway**.
+   open **System Settings → Privacy & Security** (macOS 12: **System Preferences → Security & Privacy**), scroll to the message about Junk0 and click **Open Anyway**.
    You only need to do this once.
 
-**Requirements:** macOS 14 Sonoma or later · Apple Silicon or Intel · ~3 MB of disk space.
+**Requirements:** macOS 12 Monterey or later · Apple Silicon or Intel · ~3 MB of disk space.
 
 ## Using it
 

@@ -21,7 +21,7 @@ APP="build/Junk0.app"
 rm -rf build && mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 for ARCH in arm64 x86_64; do
-  "$SWIFTC" -sdk "$SDK" -O -target "$ARCH-apple-macos14" Sources/*.swift -o "build/Junk0-$ARCH"
+  "$SWIFTC" -sdk "$SDK" -O -target "$ARCH-apple-macos12" Sources/*.swift -o "build/Junk0-$ARCH"
 done
 LIPO -create build/Junk0-arm64 build/Junk0-x86_64 -output "$APP/Contents/MacOS/Junk0"
 rm build/Junk0-arm64 build/Junk0-x86_64

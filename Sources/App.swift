@@ -101,7 +101,7 @@ struct ContentView: View {
     HStack(spacing: 16) {
       Image(nsImage: NSApp.applicationIconImage).resizable().frame(width: 64, height: 64)
       VStack(alignment: .leading, spacing: 2) {
-        (Text("Junk") + Text("0").foregroundStyle(brandViolet).fontDesign(.rounded)).font(.system(size: 22, weight: .semibold))
+        (Text("Junk").font(.system(size: 22, weight: .semibold)) + Text("0").foregroundColor(brandViolet).font(.system(size: 22, weight: .semibold, design: .rounded)))
         Group {
           if case .ready = m.phase { Text("\(fmt(m.total)) found") } else { Text("Caches, logs and leftovers — safely") }
         }.font(.subheadline).foregroundStyle(.secondary)
@@ -154,7 +154,7 @@ struct ContentView: View {
     let v = g.wrappedValue, blocked = !v.blocker.isEmpty
     return HStack(spacing: 12) {
       ZStack {
-        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(v.tint.gradient)
+        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(LinearGradient(colors: [v.tint.opacity(0.85), v.tint], startPoint: .top, endPoint: .bottom))
         Image(systemName: v.icon).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
       }.frame(width: 32, height: 32)
       VStack(alignment: .leading, spacing: 2) {
@@ -312,7 +312,7 @@ struct SettingsSheet: View {
 
 struct Junk0App: App {
   var body: some Scene {
-    WindowGroup { ContentView() }.windowResizability(.contentSize)
+    WindowGroup { ContentView() }.contentSizedWindow()
   }
 }
 
@@ -337,3 +337,9 @@ struct Junk0App: App {
 
 /// Junk0 brand accent (matches the icon glow).
 let brandViolet = Color(red: 0.43, green: 0.29, blue: 1.0)
+
+extension Scene {
+  func contentSizedWindow() -> some Scene {
+    if #available(macOS 13.0, *) { return windowResizability(.contentSize) } else { return self }
+  }
+}
